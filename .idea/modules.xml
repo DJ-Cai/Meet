@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Meet.iml" filepath="$PROJECT_DIR$/.idea/modules/Meet.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Meet.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Meet.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/framework/Meet.framework.iml" filepath="$PROJECT_DIR$/.idea/modules/framework/Meet.framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mylibrary/Meet.mylibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/mylibrary/Meet.mylibrary.iml" />
     </modules>
   </component>
 </project>

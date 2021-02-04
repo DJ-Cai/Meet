@@ -1,2 +1,4 @@
+include ':framework'
+include ':mylibrary'
 include ':app'
 rootProject.name = "Meet"

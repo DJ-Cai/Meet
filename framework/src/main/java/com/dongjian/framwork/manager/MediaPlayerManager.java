@@ -3,6 +3,8 @@ package com.dongjian.framwork.manager;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 
 import androidx.annotation.RequiresApi;
 
@@ -25,6 +27,33 @@ public class MediaPlayerManager {
 
     private MediaPlayer mMediaPlayer;
     private OnMusicProgressListener musicProgressListener;
+
+    private static final int H_PROGRESS = 1000;
+
+    /**
+     * 用Handler来获取歌曲的进度：开始播放的时候开始循环计时，然后抛出进度结果
+     */
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            //判断传入消息的类型，如果是H_PROGRESS就开始计算歌曲进度
+            switch (msg.what){
+                case H_PROGRESS:
+                    //1、此接口不为空，证明需要监听歌曲进度；为空则不监听
+                    if(musicProgressListener != null){
+                        //2、获取当前时长,算出在歌曲里的百分比  然后抛给监听接口
+                        int currentPosition = getCurrentPosition();
+                        int pos = (int)( ((float) currentPosition) / ((float)getDuration()) * 100);
+                        musicProgressListener.OnProgress(currentPosition,pos);
+                        //3、延迟一秒继续做循环操作 -- 每隔一秒会往外抛出当前歌曲进度
+                        mHandler.sendEmptyMessageDelayed(H_PROGRESS,1000);
+
+                    }
+                    break;
+            }
+            return false;
+        }
+    });
 
     public MediaPlayerManager(){
         mMediaPlayer = new MediaPlayer();
@@ -61,6 +90,8 @@ public class MediaPlayerManager {
             mMediaPlayer.start();
             //5、设置媒体当前状态
             MEDIA_STATUS = MEDIA_STATUS_PLAY;
+            //6、给Handler发送消息,以便开始计算歌曲进度
+            mHandler.sendEmptyMessage(H_PROGRESS);
         } catch (IOException e) {
             LogUtils.e(e.toString());
             e.printStackTrace();
@@ -75,6 +106,8 @@ public class MediaPlayerManager {
         if(isPlaying()){
             mMediaPlayer.pause();
             MEDIA_STATUS = MEDIA_STATUS_PAUSE;
+            //移除Handler的消息
+            mHandler.removeMessages(H_PROGRESS);
         }
     }
 
@@ -84,6 +117,8 @@ public class MediaPlayerManager {
     public void continuePlay(){
         mMediaPlayer.start();
         MEDIA_STATUS = MEDIA_STATUS_PLAY;
+        //继续发送消息给Handler
+        mHandler.sendEmptyMessage(H_PROGRESS);
     }
 
     /**
@@ -92,6 +127,8 @@ public class MediaPlayerManager {
     public void stopPlay(){
         mMediaPlayer.stop();
         MEDIA_STATUS = MEDIA_STATUS_STOP;
+        //移除消息
+        mHandler.removeMessages(H_PROGRESS);
     }
 
     /**
@@ -137,7 +174,13 @@ public class MediaPlayerManager {
     }
 
     public interface OnMusicProgressListener{
-        void OnProgress();
+        /**
+         *
+         *获取当前歌曲进度
+         * @param progress 当前歌曲播放的时长
+         * @param pos 当前歌曲播放的百分比
+         */
+        void OnProgress(int progress,int pos);
     }
 
 

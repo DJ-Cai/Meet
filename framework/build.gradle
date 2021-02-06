@@ -40,7 +40,8 @@ android {
 
 dependencies {
 
-    implementation rootProject.ext.dependencies["appcompat"]
+    //api:外部也可以引用
+    api rootProject.ext.dependencies["appcompat"]
     implementation rootProject.ext.dependencies["material"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -102,6 +102,58 @@ public class GuideActivity extends BaseUIActivity {
         animNight_2.start();
         AnimationDrawable animSmile_2 = (AnimationDrawable) iv_guide_smile_2.getBackground();
         animSmile_2.start();
+
+        //2、小圆点逻辑--监听ViewPager的滑动事件
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                selectedPoint(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+    }
+
+    /**
+     *动态选择小圆点
+     */
+    private void selectedPoint(int position){
+        switch (position){
+            case 0 :
+                iv_guide_point_1.setImageResource(R.drawable.img_guide_point_p);
+                iv_guide_point_2.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_3.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_4.setImageResource(R.drawable.img_guide_point);
+                break;
+            case 1 :
+                iv_guide_point_1.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_2.setImageResource(R.drawable.img_guide_point_p);
+                iv_guide_point_3.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_4.setImageResource(R.drawable.img_guide_point);
+                break;
+            case 2 :
+                iv_guide_point_1.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_2.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_3.setImageResource(R.drawable.img_guide_point_p);
+                iv_guide_point_4.setImageResource(R.drawable.img_guide_point);
+                break;
+            case 3 :
+                iv_guide_point_1.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_2.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_3.setImageResource(R.drawable.img_guide_point);
+                iv_guide_point_4.setImageResource(R.drawable.img_guide_point_p);
+                break;
+        }
     }
 
 

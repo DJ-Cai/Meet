@@ -1,16 +1,25 @@
 package net.dongjian.meet.ui;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.ViewPager;
 
 import com.dongjian.framwork.base.BasePageAdapter;
 import com.dongjian.framwork.base.BaseUIActivity;
+import com.dongjian.framwork.manager.MediaPlayerManager;
+import com.dongjian.framwork.utils.AnimUtils;
 
 import net.dongjian.meet.R;
 
@@ -25,7 +34,7 @@ import java.util.List;
  * 4、属性动画 ： 旋转
  * 5、跳转
  */
-public class GuideActivity extends BaseUIActivity {
+public class GuideActivity extends BaseUIActivity implements View.OnClickListener {
 
     //界面控件:音乐图片、跳过文字、四个白点、ViewPager
     private ImageView iv_music_switch;
@@ -52,6 +61,11 @@ public class GuideActivity extends BaseUIActivity {
     private ImageView iv_guide_night_2;
     private ImageView iv_guide_smile_2;
 
+    //歌曲部分
+    private MediaPlayerManager mGuideMusic;
+
+    //音乐图标的旋转
+    private ObjectAnimator mAnim;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +83,11 @@ public class GuideActivity extends BaseUIActivity {
         iv_guide_point_3 = findViewById(R.id.iv_guide_point_3);
         iv_guide_point_4 = findViewById(R.id.iv_guide_point_4);
         mViewPager = findViewById(R.id.mViewPager);
+
+        //音乐事件：点击音乐图案，音乐暂停。
+        iv_music_switch.setOnClickListener(this);
+        //text事件：跳过
+        tv_guide_skip.setOnClickListener(this);
 
         view1 = View.inflate(this, R.layout.layout_pager_guide_1, null);
         view2 = View.inflate(this, R.layout.layout_pager_guide_2, null);
@@ -120,9 +139,42 @@ public class GuideActivity extends BaseUIActivity {
 
             }
         });
+        
+        //3、歌曲的逻辑
+        startMusic();
 
+        //4、旋转属性动画
+        mAnim = AnimUtils.rotation(iv_music_switch);
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            //点击的是音乐按钮
+            case R.id.iv_music_switch:
+                //要判断当前音乐状态，如果是正在播放，则暂停；如果是暂停，则播放
+                if(mGuideMusic.MEDIA_STATUS == MediaPlayerManager.MEDIA_STATUS_PAUSE){
+                    //设置图标图片为正在播放的图片
+                    iv_music_switch.setImageResource(R.drawable.img_guide_music);
+                    //属性动画开始播放
+                    mAnim.start();
+                    //音乐继续播放
+                    mGuideMusic.continuePlay();
+                }else if(mGuideMusic.MEDIA_STATUS == MediaPlayerManager.MEDIA_STATUS_PLAY){
+                    iv_music_switch.setImageResource(R.drawable.img_guide_music_off);
+                    mAnim.pause();
+                    mGuideMusic.pausePlay();
+                }
+                break;
+            //点击的是跳过按钮
+            case R.id.tv_guide_skip:
+                startActivity(new Intent(this,LoginActivity.class));
+                finish();
+                break;
+        }
+    }
+
 
     /**
      *动态选择小圆点
@@ -154,6 +206,20 @@ public class GuideActivity extends BaseUIActivity {
                 iv_guide_point_4.setImageResource(R.drawable.img_guide_point_p);
                 break;
         }
+    }
+
+    /**
+     *播放音乐
+     */
+    private void startMusic() {
+        mGuideMusic = new MediaPlayerManager();
+        mGuideMusic.setLooping(true);
+        AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.test);
+        mGuideMusic.startPlay(file);
+
+        //        MediaPlayerManager mediaPlayerManager = new MediaPlayerManager();
+//        AssetFileDescriptor fileDescriptor = getResources().openRawResourceFd(R.raw.test);
+//        mediaPlayerManager.startPlay(fileDescriptor);
     }
 
 

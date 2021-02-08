@@ -23,7 +23,7 @@ public class MediaPlayerManager {
     public static final int MEDIA_STATUS_STOP = 2;
 
     //媒体当前状态--默认停止
-    public static int MEDIA_STATUS = MEDIA_STATUS_STOP;
+    public int MEDIA_STATUS = MEDIA_STATUS_STOP;
 
     private MediaPlayer mMediaPlayer;
     private OnMusicProgressListener musicProgressListener;
@@ -77,13 +77,13 @@ public class MediaPlayerManager {
     /**
      * 1、控制播放器开始播放
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void startPlay(AssetFileDescriptor path){
         try {
             //1、重置一下播放器
             mMediaPlayer.reset();
-            //2、设置资源   -- 加了个版本判断
-            mMediaPlayer.setDataSource(path);
+            //2、设置资源
+            //mMediaPlayer.setDataSource(path);  这样只能允许N版本后的进行播放
+            mMediaPlayer.setDataSource(path.getFileDescriptor(),path.getStartOffset(),path.getLength());
             //3、以同步的方式装载好流媒体文件
             mMediaPlayer.prepare();
             //4、开始播放

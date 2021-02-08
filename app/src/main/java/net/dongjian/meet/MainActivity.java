@@ -21,12 +21,12 @@ public class MainActivity extends BaseUIActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LogUtils.i("Hello World");
-        LogUtils.e("Hello World Twice");
-
-        MediaPlayerManager mediaPlayerManager = new MediaPlayerManager();
-        AssetFileDescriptor fileDescriptor = getResources().openRawResourceFd(R.raw.test);
-        mediaPlayerManager.startPlay(fileDescriptor);
+//        LogUtils.i("Hello World");
+//        LogUtils.e("Hello World Twice");
+//
+//        MediaPlayerManager mediaPlayerManager = new MediaPlayerManager();
+//        AssetFileDescriptor fileDescriptor = getResources().openRawResourceFd(R.raw.test);
+//        mediaPlayerManager.startPlay(fileDescriptor);
 
 //        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 //            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE} , 1);

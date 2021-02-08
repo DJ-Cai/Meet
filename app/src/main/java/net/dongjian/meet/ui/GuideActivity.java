@@ -216,11 +216,11 @@ public class GuideActivity extends BaseUIActivity implements View.OnClickListene
         mGuideMusic.setLooping(true);
         AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.test);
         mGuideMusic.startPlay(file);
-
-        //        MediaPlayerManager mediaPlayerManager = new MediaPlayerManager();
-//        AssetFileDescriptor fileDescriptor = getResources().openRawResourceFd(R.raw.test);
-//        mediaPlayerManager.startPlay(fileDescriptor);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mGuideMusic.stopPlay();
+    }
 }

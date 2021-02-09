@@ -37,6 +37,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../framework/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../framework/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../framework/build/generated/res/resValues/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../framework/src/main/res" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../framework/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../framework/build" />
     </content>

@@ -1,9 +1,12 @@
 package net.dongjian.meet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -13,13 +16,29 @@ import com.dongjian.framwork.manager.MediaPlayerManager;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.TimeUtils;
 
-public class MainActivity extends BaseUIActivity {
+import net.dongjian.meet.test.TestActivity;
+
+public class MainActivity extends BaseUIActivity implements View.OnClickListener{
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+//            case R.id.button_1:
+//                startActivity(new Intent(this, TestActivity.class));
+//                break;
+        }
+    }
 
     @Override
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        Button button = findViewById(R.id.button_1);
+//        button.setOnClickListener(this);
+
+
 
 //        LogUtils.i("Hello World");
 //        LogUtils.e("Hello World Twice");

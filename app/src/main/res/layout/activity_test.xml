@@ -6,6 +6,7 @@
 
 <!--    测试专用布局  -->
     <com.dongjian.framwork.view.TouchPictureV
+        android:id="@+id/TouchPictureV"
         android:layout_width="match_parent"
         android:layout_height="240dp"/>
 

@@ -23,9 +23,9 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-//            case R.id.button_1:
-//                startActivity(new Intent(this, TestActivity.class));
-//                break;
+            case R.id.button_1:
+                startActivity(new Intent(this, TestActivity.class));
+                break;
         }
     }
 
@@ -35,8 +35,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Button button = findViewById(R.id.button_1);
-//        button.setOnClickListener(this);
+        Button button = findViewById(R.id.button_1);
+        button.setOnClickListener(this);
 
 
 

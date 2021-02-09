@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -40,6 +41,22 @@ public class TouchPictureV extends View {
     //View的宽高---bitmap背景的时候，想和这里的数据一样
     private int mWidth;
     private int mHeight;
+
+    //空白方块大小
+    private int CARD_SIZE = 200;
+    //空白方块坐标
+    private int LINE_W, LINE_H = 0;
+
+    //移动方块横坐标 (纵坐标和空白块保持一致)
+    private int moveX = 200;
+    //移动方块可允许的误差值
+    private int errorValue = 20;
+
+    private OnViewResultListener viewResultListener;
+
+    public void setViewResultListener(OnViewResultListener viewResultListener){
+        this.viewResultListener = viewResultListener;
+    }
 
     public TouchPictureV(Context context) {
         super(context);
@@ -83,18 +100,13 @@ public class TouchPictureV extends View {
         drawBg(canvas);
         //2、绘制空白方块
         dragNullCard(canvas);
+
+        //3、绘制移动的方块
+        drawMoveCard(canvas);
     }
 
     /**
-     * 绘制空白快---比较简单，没有移动，固定在一个地方没有改变
-     * @param canvas
-     */
-    private void dragNullCard(Canvas canvas) {
-        //1、先获取图片
-    }
-
-    /**
-     * 绘制背景
+     * 1、绘制背景
      * @param canvas
      */
     private void drawBg(Canvas canvas) {
@@ -105,11 +117,63 @@ public class TouchPictureV extends View {
         //3、将图片绘制到空的Bitmap，
         //  3-1、做个画布
         Canvas bgCanvas = new Canvas(bgBitmap);
-        //  3-2、画布上放入图片，矩形大小、画笔
+        //  3-2、画布上放入图片，图片位置、画笔
         bgCanvas.drawBitmap(mBitmap,null,new Rect(0,0,mWidth,mHeight),mPaintbg);
         //4、将bgBitmap绘制到View上（和第三步类似，只是将bitmap的canvas换成view的canvas）
         canvas.drawBitmap(bgBitmap,null,new Rect(0,0,mWidth,mHeight),mPaintbg);
     }
 
+    /**
+     * 2、绘制空白快---比较简单，没有移动，固定在一个地方没有改变
+     * @param canvas
+     */
+    private void dragNullCard(Canvas canvas) {
+        //1、先获取图片
+        mNullBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.img_null_card);
+        //2、计算空白块的位置
+        CARD_SIZE = mNullBitmap.getWidth(); //空白块大小
+        LINE_W = mWidth / 3 * 2;   // 宽：空白块在View的宽第二段的位置
+        LINE_H = mHeight / 2 - (CARD_SIZE / 2);      //高：让空白块处于二分高度中心
+        //3、绘制
+        canvas.drawBitmap(mNullBitmap,LINE_W,LINE_H,mPaintNull);
+    }
 
+    /**
+     * 3、绘制移动的方块
+     * @param canvas
+     */
+    private void drawMoveCard(Canvas canvas) {
+        //1、截取空白块位置坐标上的图像---在相同坐标上截取相同大小的图像
+        mMoveBitmap = Bitmap.createBitmap(bgBitmap,LINE_W,LINE_H,CARD_SIZE,CARD_SIZE);
+        //2、绘制在View上
+        canvas.drawBitmap(mMoveBitmap,moveX,LINE_H,mPaintMove);
+    }
+
+    /**
+     * 3-2、移动方块的
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch(event.getAction()){
+            case MotionEvent.ACTION_MOVE:
+                //更新移动方块的位置，要做防止越界操作
+                if(event.getX() > 0 && event.getX() < (mWidth - CARD_SIZE)){
+                    moveX = (int) event.getX();
+                    //移动的时候判断位置是否正确（在误差允许的范围内）
+                    if(moveX > (LINE_W - errorValue) && moveX < (LINE_W + errorValue)){
+                        if(viewResultListener != null){
+                            viewResultListener.onResult();
+                        }
+                    }
+                    invalidate();
+                }
+                break;
+        }
+        return true;
+    }
+
+
+    public interface OnViewResultListener{
+        void onResult();
+    }
 }

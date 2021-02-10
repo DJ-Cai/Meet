@@ -150,7 +150,7 @@ public class TouchPictureV extends View {
     }
 
     /**
-     * 3-2、移动方块的
+     * 3-2、移动方块的操作
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {

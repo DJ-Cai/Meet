@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    //httpClient
+    useLibrary rootProject.ext.dependencies["httpclient"]
+
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
@@ -46,4 +49,12 @@ dependencies {
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation rootProject.ext.dependencies["espresso"]
+
+    api rootProject.ext.dependencies["bmobsdk"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["okio"]
+    api rootProject.ext.dependencies["gson"]
+
 }

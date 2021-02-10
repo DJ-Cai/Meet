@@ -1,24 +1,37 @@
-ext{
+ext {
     //Android 配置
     android = [
-            compileSdkVersion:  29,
-            buildToolsVersion:  "30.0.2",
-            applicationId:      "net.dongjian.meet",
-            minSdkVersion:      19,
-            targetSdkVersion:   29,
-            versionCode:        1,
-            versionName:        "1.0",
+            compileSdkVersion        : 29,
+            buildToolsVersion        : "30.0.2",
+            applicationId            : "net.dongjian.meet",
+            minSdkVersion            : 19,
+            targetSdkVersion         : 29,
+            versionCode              : 1,
+            versionName              : "1.0",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
-            consumerProguardFiles: "consumer-rules.pro",
+            consumerProguardFiles    : "consumer-rules.pro",
 
     ]
 
     //依赖配置
     dependencies = [
-        appcompat : 'androidx.appcompat:appcompat:1.2.0',
-        material : 'com.google.android.material:material:1.2.1',
-        constraintlayout : 'androidx.constraintlayout:constraintlayout:2.0.4',
-        junit : 'junit:junit:4.+',
-        espresso : 'androidx.test.espresso:espresso-core:3.3.0',
+            httpclient      : 'org.apache.http.legacy',
+            appcompat       : 'androidx.appcompat:appcompat:1.2.0',
+            material        : 'com.google.android.material:material:1.2.1',
+            constraintlayout: 'androidx.constraintlayout:constraintlayout:2.0.4',
+            junit           : 'junit:junit:4.+',
+            espresso        : 'androidx.test.espresso:espresso-core:3.3.0',
+
+            bmobsdk         : 'cn.bmob.android:bmob-sdk:3.7.8',
+            rxjava2         : "io.reactivex.rxjava2:rxjava:2.2.8",
+            rxandroid2      : 'io.reactivex.rxjava2:rxandroid:2.1.1',
+            okhttp          : 'com.squareup.okhttp3:okhttp:3.14.1',
+            okio            : 'com.squareup.okio:okio:2.2.2',
+            gson            : 'com.google.code.gson:gson:2.8.5',
+    ]
+
+    //仓库
+    maven = [
+            bmobUrl: 'https://dl.bintray.com/chaozhouzhang/maven',
     ]
 }

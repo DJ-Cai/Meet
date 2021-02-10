@@ -2,20 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.dongjian.meet">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Meet"
-        android:requestLegacyExternalStorage="true"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:theme="@style/Theme.Meet">
+
+        <!--   Bmob      -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="net.dongjian.meet.BmobContentProvider"></provider>
+
         <!--    启动页   -->
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,13 +27,19 @@
             </intent-filter>
         </activity>
         <!--    主页     -->
-        <activity android:name=".ui.IndexActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppThemeFull" />
         <!--    引导页    -->
-        <activity android:name=".ui.GuideActivity"/>
+        <activity
+            android:name=".ui.GuideActivity"
+            android:theme="@style/AppThemeFull" />
         <!--    登录页    -->
-        <activity android:name=".ui.LoginActivity"/>
-        
-        <activity android:name=".test.TestActivity"/>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/AppThemeFull" />
+
+        <activity android:name=".test.TestActivity" />
     </application>
 
 </manifest>

@@ -15,13 +15,14 @@
     <string name="text_guide_pager_3">真常应物  真常得性</string>
     <string name="text_guide_pager_4">常应常静  常清静矣</string>
 
-    <string name="text_login_phone">电话号码</string>
-    <string name="text_login_code">验证码</string>
+    <string name="text_login_phone">请输入电话号码</string>
+    <string name="text_login_code">请输入验证码</string>
     <string name="text_login_password">密码</string>
     <string name="text_login_send">发送</string>
     <string name="text_login_login">登录</string>
     <string name="text_login_agreement_1">我已阅读并同意</string>
     <string name="text_login_agreement_2"><u>用户协议</u></string>
+    <string name="text_login_finalWord">(无具体内容)</string>
     <string name="text_login_phone_null">电话号码不能为空</string>
     <string name="text_login_pw_null">密码不能为空</string>
     <string name="text_login_code_null">验证码不能为空</string>

@@ -2,7 +2,7 @@ package com.dongjian.framwork;
 
 import android.content.Context;
 
-import com.dongjian.framwork.manager.BmobManager;
+import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.utils.SpUtils;
 
 /**

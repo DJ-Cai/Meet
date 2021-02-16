@@ -19,7 +19,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".ui.IndexActivity"
+            android:name=".ui.LoginActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             android:theme="@style/AppThemeFull" />
         <!--    登录页    -->
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull" />
 
         <activity android:name=".test.TestActivity" />

@@ -24,6 +24,8 @@
     <string name="text_login_agreement_2"><u>用户协议</u></string>
     <string name="text_login_finalWord">(无具体内容)</string>
     <string name="text_login_phone_null">电话号码不能为空</string>
+    <string name="text_login_sms_successful">发送短信成功</string>
+    <string name="text_login_sms_fail">发送短信失败</string>
     <string name="text_login_pw_null">密码不能为空</string>
     <string name="text_login_code_null">验证码不能为空</string>
     <string name="text_login_now_login_text">正在登陆...</string>

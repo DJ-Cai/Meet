@@ -101,7 +101,6 @@ public class TouchPictureV extends View {
         drawBg(canvas);
         //2、绘制空白方块
         dragNullCard(canvas);
-
         //3、绘制移动的方块
         drawMoveCard(canvas);
     }

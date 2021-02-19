@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dongjian.framwork.base.BaseUIActivity;
+import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.entity.Constants;
 import com.dongjian.framwork.utils.SpUtils;
 
@@ -56,34 +57,32 @@ public class IndexActivity extends BaseUIActivity {
      * 3、根据具体逻辑判断是进入主页还是引导页还是登录页
      */
     private void startMain(){
+        //1、判断App是否是第一次启动 ： 即安装后第一次打开
+        Boolean isFirstApp = SpUtils.getInstance().getBoolean(Constants.SP_IS_FIRST_AP,true);
         Intent intent = new Intent();
-        intent.setClass(this,LoginActivity.class);
-//        //1、判断App是否是第一次启动 ： 即安装后第一次打开
-//        Boolean isFirstApp = SpUtils.getInstance().getBoolean(Constants.SP_IS_FIRST_AP,true);
-//        Intent intent = new Intent();
-//        //2、如果是第一次，那么跳转到引导页
-//        if(isFirstApp){
-//            //跳转到引导页
-//            intent.setClass(this,GuideActivity.class);
-//            //跳转之后就不是第一次打开了，所以需要设置一下
-//            SpUtils.getInstance().putBoolean(Constants.SP_IS_FIRST_AP,false);
-//        }else{
-//            //判断是否曾经登录过
-//            String token = SpUtils.getInstance().getString(SP_TOKEN,"");
-//            Toast.makeText(this, "到这了", Toast.LENGTH_SHORT).show();
-//            if(TextUtils.isEmpty(token)){
-//                //没有登录过，就跳转到登录页
-//                intent.setClass(this,LoginActivity.class);
-//
-//            }else{
-//                //登陆过，就跳转到主页
-//                intent.setClass(this, MainActivity.class);
-//            }
-//        }
+        //2、如果是第一次，那么跳转到引导页
+        if(isFirstApp){
+            //跳转到引导页
+            intent.setClass(this,GuideActivity.class);
+            //跳转之后就不是第一次打开了，所以需要设置一下
+            SpUtils.getInstance().putBoolean(Constants.SP_IS_FIRST_AP,false);
+        }else{
+            //判断是否曾经登录过
+            String token = SpUtils.getInstance().getString(SP_TOKEN,"");
+            if(TextUtils.isEmpty(token)){
+                if (BmobManager.getmInstance().isLogin()) {
+                    //跳转到主页
+                    intent.setClass(this, MainActivity.class);
+                } else {
+                    //跳转到登录页
+                    intent.setClass(this, LoginActivity.class);
+                }
+            }else{
+                //登陆过，就跳转到主页
+                intent.setClass(this, MainActivity.class);
+            }
+        }
         startActivity(intent);
-
         finish();
-
-
     }
 }

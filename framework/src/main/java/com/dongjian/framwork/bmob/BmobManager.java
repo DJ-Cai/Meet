@@ -41,6 +41,15 @@ public class BmobManager {
     }
 
     /**
+     * 判断Bmob中user的登录状态
+     * @return
+     */
+    public boolean isLogin(){
+        return BmobUser.isLogin();
+    }
+
+
+    /**
      * 获取本地对象
      * @return
      */

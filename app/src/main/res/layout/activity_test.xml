@@ -5,9 +5,34 @@
     android:layout_height="match_parent">
 
 <!--    测试专用布局  -->
-    <com.dongjian.framwork.view.TouchPictureV
-        android:id="@+id/TouchPictureV"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"/>
 
+
+<!-- 1、   <com.dongjian.framwork.view.TouchPictureV-->
+<!--        android:id="@+id/TouchPictureV"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="240dp"/>-->
+
+
+<!--    2、-->
+    <Button
+        android:id="@+id/zeng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="增加"/>
+
+    <Button
+        android:id="@+id/shan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除"/>
+    <Button
+        android:id="@+id/gai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改"/>
+    <Button
+        android:id="@+id/cha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查找"/>
 </LinearLayout>

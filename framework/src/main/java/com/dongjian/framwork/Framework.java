@@ -1,8 +1,10 @@
 package com.dongjian.framwork;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.dongjian.framwork.bmob.BmobManager;
+import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 
 /**
@@ -27,9 +29,10 @@ public class Framework {
         return mFramwork;
     }
 
-    public void initFramework(Context mCOntext){
-        SpUtils.getInstance().initSp(mCOntext);
-        BmobManager.getmInstance().initBmob(mCOntext);
+    public void initFramework(Context mContext){
+        LogUtils.i("initFramework");
+        SpUtils.getInstance().initSp(mContext);
+        BmobManager.getmInstance().initBmob(mContext);
     }
 
 }

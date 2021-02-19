@@ -4,7 +4,7 @@ plugins {
 
 android {
     //httpClient
-    useLibrary rootProject.ext.dependencies["httpclient"]
+    useLibrary 'org.apache.http.legacy'
 
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -20,41 +20,38 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             //自定义Gradle常量
-            buildConfigField("boolean","LOG_DEBUG","true")
-            buildConfigField("String","LOG_TAG","\"Meet\"")
-            buildConfigField("String","SP_NAME","\"Config\"")
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            buildConfigField("String", "LOG_TAG", "\"Meet\"")
+            buildConfigField("String", "SP_NAME", "\"Config\"")
         }
         release {
-            buildConfigField("boolean","LOG_DEBUG","false")
-            buildConfigField("String","LOG_TAG","\"Meet\"")
-            buildConfigField("String","SP_NAME","\"Config\"")
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField("String", "LOG_TAG", "\"Meet\"")
+            buildConfigField("String", "SP_NAME", "\"Config\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //api:外部也可以引用
     api rootProject.ext.dependencies["appcompat"]
-    implementation rootProject.ext.dependencies["material"]
+    api rootProject.ext.dependencies["material"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation rootProject.ext.dependencies["espresso"]
 
-    api rootProject.ext.dependencies["bmobsdk"]
-    api rootProject.ext.dependencies["rxjava2"]
-    api rootProject.ext.dependencies["rxjava2"]
-    api rootProject.ext.dependencies["rxjava2"]
-    api rootProject.ext.dependencies["okio"]
-    api rootProject.ext.dependencies["gson"]
+    api 'cn.bmob.android:bmob-sdk:3.7.8'
+    api 'io.reactivex.rxjava2:rxjava:2.2.6'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api 'com.squareup.okhttp3:okhttp:3.14.1'
+    api 'com.squareup.okio:okio:2.2.2'
+    api 'com.google.code.gson:gson:2.8.5'
 
 }

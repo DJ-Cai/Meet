@@ -37,8 +37,17 @@ public class BmobManager {
 
     //初始化Bmob
     public void initBmob(Context mContent) {
-        Bmob.initialize(mContent, BMOB_SDK_ID);
+        Bmob.initialize(mContent,BMOB_SDK_ID);
     }
+
+    /**
+     * 获取本地对象
+     * @return
+     */
+    public IMUser getUser(){
+        return BmobUser.getCurrentUser(IMUser.class);
+    }
+
 
     /**
      * 发送短信验证码

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--解决高版本的mediaPlayer无法播放声音问题  - 允许主机使用http-->
 <network_security_config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">server.com</domain>
-    </domain-config>
+
+    <!--默认允许所有网址使用非安全连接-->
+<!--    但我并没有在Manifest里进行配置-->
+    <base-config cleartextTrafficPermitted="true" />
+
 </network_security_config>

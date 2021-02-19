@@ -4,8 +4,6 @@ plugins {
 
 android {
 
-
-
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
@@ -16,7 +14,7 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
 
-        testInstrumentationRunner rootProject.ext.android["testInstrumentationRunner"]
+//        testInstrumentationRunner rootProject.ext.android["testInstrumentationRunner"]
     }
 
     buildTypes {
@@ -33,12 +31,9 @@ android {
 
 dependencies {
 
-    implementation rootProject.ext.dependencies["material"]
-    implementation rootProject.ext.dependencies["constraintlayout"]
-    testImplementation rootProject.ext.dependencies["junit"]
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation rootProject.ext.dependencies["espresso"]
-
-    //添加Framework依赖     根目录下的framework包
+    //  添加Framework依赖     根目录下的framework包
     implementation project(path: ':framework')
+
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+
 }

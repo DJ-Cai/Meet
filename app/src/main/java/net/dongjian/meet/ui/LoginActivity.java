@@ -17,17 +17,14 @@ import androidx.annotation.Nullable;
 import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.IMUser;
-import com.dongjian.framwork.entity.Constants;
-import com.dongjian.framwork.utils.SpUtils;
 
 import net.dongjian.meet.MainActivity;
 import net.dongjian.meet.R;
 
-import org.w3c.dom.Text;
-
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
+
 
 /**
  * 登录页
@@ -56,13 +53,13 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
                     btn_send_code.setText(TIME + "s");
                     TIME--;
                     if (TIME >= 0) {
-                        btn_send_code.setBackgroundResource(R.drawable.login_btn_bg_2);
+                     //   btn_send_code.setBackgroundResource(R.drawable.login_btn_bg_2);
                         mHandler.sendEmptyMessageDelayed(H_TIME, 1000);
                     } else {
                         //这里好像无法再次执行点击事件了
                         btn_send_code.setEnabled(true);
                         btn_send_code.setText(getString(R.string.text_login_send));
-                        btn_send_code.setBackgroundResource(R.drawable.login_btn_bg);
+                    //    btn_send_code.setBackgroundResource(R.drawable.login_btn_bg);
                     }
                     break;
             }
@@ -90,10 +87,10 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
         btn_login.setOnClickListener(this);
 
         //优化：读取之前留下的电话号码
-        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE,"");
-        if(!TextUtils.isEmpty(phone)){
-            et_phone.setText(phone);
-        }
+//        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
+//        if(!TextUtils.isEmpty(phone)){
+//            et_phone.setText(phone);
+//        }
     }
 
 
@@ -134,7 +131,7 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
                     //登录成功
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     //（体验优化：保存此次登录用的手机号码，下次不用重新输入手机号码）
-                    SpUtils.getInstance().putString(Constants.SP_PHONE,phone);
+                    //SpUtils.getInstance().putString(Constants.SP_PHONE,phone);
                     finish();
                 } else {
                     //登录失败则弹出错误原因

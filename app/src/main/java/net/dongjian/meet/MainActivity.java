@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.dongjian.framwork.base.BaseUIActivity;
+import com.dongjian.framwork.bmob.BmobManager;
+import com.dongjian.framwork.bmob.IMUser;
 import com.dongjian.framwork.manager.MediaPlayerManager;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.TimeUtils;
@@ -38,6 +40,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         Button button = findViewById(R.id.button_1);
         button.setOnClickListener(this);
 
+        IMUser curUser = BmobManager.getmInstance().getUser();
+        Toast.makeText(this, "User" + curUser.getMobilePhoneNumber(), Toast.LENGTH_SHORT).show();
 
 
 //        LogUtils.i("Hello World");

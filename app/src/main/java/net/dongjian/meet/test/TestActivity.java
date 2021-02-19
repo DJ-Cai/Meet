@@ -17,6 +17,7 @@ import net.dongjian.meet.R;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 public class TestActivity extends BaseActivity implements View.OnClickListener {
@@ -54,7 +55,18 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 });
                 break;
             case R.id.shan:
-                LogUtils.e("删除成功");
+                MyData my = new MyData();
+                my.delete("1da6739022", new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            LogUtils.e("删除成功");
+                        }else{
+                            LogUtils.e(e.toString());
+                        }
+                    }
+                });
+
 
                 break;
             case R.id.gai:

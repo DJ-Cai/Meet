@@ -1,7 +1,6 @@
 package net.dongjian.meet.ui;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +16,12 @@ import androidx.annotation.Nullable;
 import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.IMUser;
+import com.dongjian.framwork.entity.Constants;
+import com.dongjian.framwork.manager.DialogManager;
+import com.dongjian.framwork.utils.SpUtils;
+import com.dongjian.framwork.view.DialogView;
+import com.dongjian.framwork.view.LoadingView;
+import com.dongjian.framwork.view.TouchPictureV;
 
 import net.dongjian.meet.MainActivity;
 import net.dongjian.meet.R;
@@ -41,9 +46,14 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
     private Button btn_send_code;
     private Button btn_login;
 
+    DialogView mCodeView;
+    TouchPictureV mPictureV;
+
+    private LoadingView mLoadingView;
+
     private static final int H_TIME = 1001;
     //发送验证码后的“倒计时60s”
-    private static int TIME = 3;
+    private static int TIME = 60;
     //通过Handler不断刷新
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -53,13 +63,14 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
                     btn_send_code.setText(TIME + "s");
                     TIME--;
                     if (TIME >= 0) {
-                     //   btn_send_code.setBackgroundResource(R.drawable.login_btn_bg_2);
+                        btn_send_code.setBackgroundResource(R.drawable.login_btn_bg_2);
+                        //延迟一秒后再进行循环倒计时
                         mHandler.sendEmptyMessageDelayed(H_TIME, 1000);
                     } else {
-                        //这里好像无法再次执行点击事件了
+                        //这里好像无法再次执行点击事件了   已解决
                         btn_send_code.setEnabled(true);
                         btn_send_code.setText(getString(R.string.text_login_send));
-                    //    btn_send_code.setBackgroundResource(R.drawable.login_btn_bg);
+                        btn_send_code.setBackgroundResource(R.drawable.login_btn_bg);
                     }
                     break;
             }
@@ -78,6 +89,9 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
      * 初始化各类视图及点击事件
      */
     private void initView() {
+
+        initDialogView();
+
         et_phone = findViewById(R.id.et_phone);
         et_code = findViewById(R.id.et_code);
         btn_send_code = findViewById(R.id.btn_send_code);
@@ -87,19 +101,18 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
         btn_login.setOnClickListener(this);
 
         //优化：读取之前留下的电话号码
-//        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
-//        if(!TextUtils.isEmpty(phone)){
-//            et_phone.setText(phone);
-//        }
+        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
+        if (!TextUtils.isEmpty(phone)) {
+            et_phone.setText(phone);
+        }
     }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //点击发送验证码的按钮：发送短信验证码
             case R.id.btn_send_code:
-                sendSMS();
+                DialogManager.getInstance().show(mCodeView);
                 break;
             //点击登录按钮
             case R.id.btn_login:
@@ -122,21 +135,44 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
             Toast.makeText(this, getString(R.string.text_login_code_null), Toast.LENGTH_SHORT).show();
             return;
         }
-
+        //2、手机号码和验证码均不为空
+        //2-1、做一个Loading的加载Dialog出来与用户进行交互
+        mLoadingView.show("正在登录 莫着急哟...");
         BmobManager.getmInstance().signOrLoginByMobilePhone(phone, code, new LogInListener<IMUser>() {
             @Override
             //登录成功或失败以后的回调
             public void done(IMUser imUser, BmobException e) {
+                mLoadingView.hide();
                 if (e == null) {
                     //登录成功
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     //（体验优化：保存此次登录用的手机号码，下次不用重新输入手机号码）
-                    //SpUtils.getInstance().putString(Constants.SP_PHONE,phone);
+                    SpUtils.getInstance().putString(Constants.SP_PHONE, phone);
                     finish();
                 } else {
                     //登录失败则弹出错误原因
                     Toast.makeText(LoginActivity.this, "ERROR:" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    /**
+     * 初始化DialogView
+     * 初始化好DialogView之后，将自定义View--PictureV传入，设置监听事件
+     */
+    private void initDialogView() {
+
+        //new一下loading
+        mLoadingView = new LoadingView(this);
+
+        mCodeView = DialogManager.getInstance().initView(this, R.layout.dialog_code_view);
+        mPictureV = mCodeView.findViewById(R.id.mPictureV);
+        mPictureV.setViewResultListener(new TouchPictureV.OnViewResultListener() {
+            @Override
+            public void onResult() {
+                DialogManager.getInstance().hide(mCodeView);
+                sendSMS();
             }
         });
     }

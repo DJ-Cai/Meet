@@ -21,7 +21,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".test.TestActivity"
+            android:name=".ui.LoginActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull" />
 
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".test.TestActivity" />
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

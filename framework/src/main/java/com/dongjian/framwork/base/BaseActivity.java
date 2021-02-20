@@ -28,7 +28,6 @@ public class BaseActivity extends AppCompatActivity {
     //申请窗口权限的Code
     public static final int PERMISSION_WINDOW_REQUEST_CODE = 1001;
 
-
     //需要申请的权限合集
     private String[] mStrPermission = {
             Manifest.permission.READ_PHONE_STATE,

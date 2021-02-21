@@ -61,15 +61,15 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
         ll_fate.setOnClickListener(this);
         ll_love.setOnClickListener(this);
 
-        //填充list内容
+        //3dCloudTag:填充list内容
         for(int i = 0 ; i < 100 ; i++){
             mFruitList.add("Fruit" + i);
         }
-        //数据绑定
+        //3dCloudTag:数据绑定
         mCloudTagAdapter = new CloudTagAdapter(getActivity(),mFruitList);
         mCloudView.setAdapter(mCloudTagAdapter);
 
-        //监听点击事件
+        //3dCloudTag:监听点击事件
         mCloudView.setOnTagClickListener(new TagCloudView.OnTagClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {

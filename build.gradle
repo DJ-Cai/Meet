@@ -22,6 +22,8 @@ allprojects {
         jcenter()
         //Bmob的maven仓库地址
         maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
+        //融云的maven仓库地址
+        maven {url  "https://dl.bintray.com/rongcloud/maven"}
     }
 }
 

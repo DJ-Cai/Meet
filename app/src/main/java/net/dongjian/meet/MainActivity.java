@@ -1,7 +1,9 @@
 package net.dongjian.meet;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,14 +13,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dongjian.framwork.base.BaseUIActivity;
+import com.dongjian.framwork.bmob.BmobManager;
+import com.dongjian.framwork.entity.Constants;
+import com.dongjian.framwork.manager.DialogManager;
 import com.dongjian.framwork.utils.LogUtils;
+import com.dongjian.framwork.utils.SpUtils;
+import com.dongjian.framwork.view.DialogView;
 
 import net.dongjian.meet.fragment.ChatFragment;
 import net.dongjian.meet.fragment.MeFragment;
 import net.dongjian.meet.fragment.SquareFragment;
 import net.dongjian.meet.fragment.StarFragment;
+import net.dongjian.meet.service.CloudService;
+import net.dongjian.meet.ui.FirstUploadActivity;
 
 import java.util.List;
+
+import static com.dongjian.framwork.entity.Constants.SP_TOKEN;
 
 /**
  * Fragment的优化
@@ -58,6 +69,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     private MeFragment mMeFragment = null;
     private FragmentTransaction mMeTransaction = null;
 
+    //在检查token的时候发现需要跳转到上传头像和昵称的地方时 用的请求码
+    public static final int UPLOAD_REQUEST_CODE = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +116,58 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
         //切换到默认的选项卡--星球
         checkMainTab(0);
+
+        checkToken();
+    }
+
+    /**
+     * 检查token
+     */
+    private void checkToken() {
+        //获取TOKEN 需要三个参数：1、用户ID  2、头像地址 3、昵称
+        String token = SpUtils.getInstance().getString(Constants.SP_TOKEN,"");
+        LogUtils.e("check-2");
+        if(!TextUtils.isEmpty(token)){
+            //启动云服务 -- 连接融云
+            startService(new Intent(this, CloudService.class));
+        }else{
+            //token为空，需要获取这三个参数:用户ID永远不变，不需要再次获取了
+            String tokenPhoto = BmobManager.getmInstance().getUser().getTokenPhoto();
+            String tokenName = BmobManager.getmInstance().getUser().getTokenNickName();
+            if(!TextUtils.isEmpty(tokenPhoto) && !TextUtils.isEmpty(tokenName)){
+                //创建token
+                creatToken();
+            }else{
+                //tokenPhoto或tokenName为空，则证明用户尚未注册,则创建上传头像和昵称的提示框
+                createUploadDialog();
+            }
+        }
+    }
+
+    /**
+     * 创建上传提示框
+     */
+    private void createUploadDialog() {
+        DialogView mUploadView = DialogManager.getInstance().initView(this,R.layout.dialog_first_upload);
+        //注意：此时外部不能进行点击了
+        mUploadView.setCancelable(false);
+        //dialog里的那个跳转箭头--点击后进行跳转
+        ImageView iv_go_upload = mUploadView.findViewById(R.id.iv_go_upload);
+        iv_go_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转前，这个Dialog需要隐藏起来
+                DialogManager.getInstance().hide(mUploadView);
+                FirstUploadActivity.startActivity(MainActivity.this,UPLOAD_REQUEST_CODE);
+            }
+        });
+        DialogManager.getInstance().show(mUploadView);
+    }
+
+    /**
+     * 创建token
+     */
+    private void creatToken() {
     }
 
     /**

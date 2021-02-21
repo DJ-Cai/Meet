@@ -38,8 +38,8 @@
     <string name="text_pair_null">暂无匹配对象</string>
 
     <string name="text_mian_dialog_text1">欢迎来到遇见App</string>
-    <string name="text_mian_dialog_text2">听说你是第一次使用</string>
-    <string name="text_mian_dialog_text3">快来填写资料吧</string>
+    <string name="text_mian_dialog_text2">看来你是第一次使用</string>
+    <string name="text_mian_dialog_text3">快来填写资料吧~</string>
 
     <string name="text_toast_error_qrcode">错误的二维码</string>
     <string name="text_qrcode_fail">解析二维码失败</string>

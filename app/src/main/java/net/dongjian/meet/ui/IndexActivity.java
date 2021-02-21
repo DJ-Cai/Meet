@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.entity.Constants;
+import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 
 import net.dongjian.meet.MainActivity;
@@ -26,7 +27,6 @@ import static com.dongjian.framwork.entity.Constants.SP_TOKEN;
  * 1、启动页全屏---用res-values里的styles.xml来做，在Manifest里引入主体即可
  * 2、延迟进入主页---用Handler来做
  * 3、根据具体逻辑判断是进入主页还是引导页还是登录页
- * 4、todo 适配刘海屏
  */
 public class IndexActivity extends BaseUIActivity {
 
@@ -67,11 +67,12 @@ public class IndexActivity extends BaseUIActivity {
             //跳转之后就不是第一次打开了，所以需要设置一下
             SpUtils.getInstance().putBoolean(Constants.SP_IS_FIRST_AP,false);
         }else{
-            //判断是否曾经登录过
-            String token = SpUtils.getInstance().getString(SP_TOKEN,"");
+            //不是第一次启动，就通过token来判断是否曾经登录过
+            String token = SpUtils.getInstance().getString(Constants.SP_TOKEN,"");
             if(TextUtils.isEmpty(token)){
+                //特殊情况：第一次登录不会有token，所以这里还要通过BmobManager来判断是否是登录状态
                 if (BmobManager.getmInstance().isLogin()) {
-                    //跳转到主页
+                    //跳转到主页：主页会再去检查token
                     intent.setClass(this, MainActivity.class);
                 } else {
                     //跳转到登录页

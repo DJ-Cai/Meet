@@ -21,7 +21,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,10 +38,11 @@
             android:theme="@style/AppThemeFull" />
         <!--    登录页    -->
         <activity
-            android:name=".ui.IndexActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppThemeFull" />
 
         <activity android:name=".test.TestActivity" />
+        <activity android:name=".ui.FirstUploadActivity"/>
     </application>
 
 

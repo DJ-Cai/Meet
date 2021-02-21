@@ -32,7 +32,8 @@ public class BaseActivity extends AppCompatActivity {
     private String[] mStrPermission = {
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
     };
 
     //保存没有同意的权限---未申请权限

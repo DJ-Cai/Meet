@@ -29,7 +29,7 @@ public class IMUser extends BmobUser {
     //年龄
     private int age = 0;
     //生日
-    private String brithday;
+    private String birthday;
     //星座
     private String constellation;
     //爱好
@@ -93,12 +93,12 @@ public class IMUser extends BmobUser {
         this.age = age;
     }
 
-    public String getBrithday() {
-        return brithday;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setBrithday(String brithday) {
-        this.brithday = brithday;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getConstellation() {
@@ -123,5 +123,22 @@ public class IMUser extends BmobUser {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "IMUser{" +
+                "tokenPhoto='" + tokenPhoto + '\'' +
+                ", tokenNickName='" + tokenNickName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", photo='" + photo + '\'' +
+                ", sex=" + sex +
+                ", desc='" + desc + '\'' +
+                ", age=" + age +
+                ", birthday='" + birthday + '\'' +
+                ", constellation='" + constellation + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

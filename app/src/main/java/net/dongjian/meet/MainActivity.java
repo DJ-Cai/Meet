@@ -1,5 +1,6 @@
 package net.dongjian.meet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -69,7 +71,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     private MeFragment mMeFragment = null;
     private FragmentTransaction mMeTransaction = null;
 
-    //在检查token的时候发现需要跳转到上传头像和昵称的地方时 用的请求码
+    //在检查token的时候发现需要跳转到上传头像和昵称的地方时的回调
     public static final int UPLOAD_REQUEST_CODE = 1002;
 
     @Override
@@ -164,10 +166,23 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         DialogManager.getInstance().show(mUploadView);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == UPLOAD_REQUEST_CODE){
+                //说明头像和昵称都上传成功了，则重新去创建token
+                checkToken();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      * 创建token
      */
     private void creatToken() {
+        LogUtils.e("createToken成功啦");
     }
 
     /**

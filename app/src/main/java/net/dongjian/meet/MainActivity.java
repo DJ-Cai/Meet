@@ -119,7 +119,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         //切换到默认的选项卡--星球
         checkMainTab(0);
 
-        checkToken();
+//        checkToken();   //域名申请下来以后可以打开
+
     }
 
     /**
@@ -128,7 +129,6 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     private void checkToken() {
         //获取TOKEN 需要三个参数：1、用户ID  2、头像地址 3、昵称
         String token = SpUtils.getInstance().getString(Constants.SP_TOKEN,"");
-        LogUtils.e("check-2");
         if(!TextUtils.isEmpty(token)){
             //启动云服务 -- 连接融云
             startService(new Intent(this, CloudService.class));

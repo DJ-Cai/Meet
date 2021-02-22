@@ -1,5 +1,6 @@
 package net.dongjian.meet.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.dongjian.framwork.base.BaseFragment;
 import com.moxun.tagcloudlib.view.TagCloudView;
 
 import net.dongjian.meet.R;
+import net.dongjian.meet.ui.AddFriendActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,7 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //添加好友
             case R.id.iv_add:
+                startActivity(new Intent(getActivity(), AddFriendActivity.class));
                 break;
             //随机匹配算法
             case R.id.ll_random:

@@ -9,7 +9,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -23,7 +22,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".ui.IndexActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,11 +39,12 @@
             android:theme="@style/AppThemeFull" />
         <!--    登录页    -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull" />
 
         <activity android:name=".test.TestActivity" />
         <activity android:name=".ui.FirstUploadActivity"/>
+        <activity android:name=".ui.AddFriendActivity"/>
 
 <!--        云服务-->
         <service android:name=".service.CloudService"/>

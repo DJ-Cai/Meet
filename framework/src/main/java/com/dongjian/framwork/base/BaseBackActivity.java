@@ -13,6 +13,8 @@ public class BaseBackActivity extends BaseActivity{
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             //将“显示主页”设置为“启用”
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //清除actionBar和View之间的阴影
+            getSupportActionBar().setElevation(0);
         }
     }
 

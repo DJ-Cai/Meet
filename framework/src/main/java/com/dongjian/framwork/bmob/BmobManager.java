@@ -5,10 +5,12 @@ import android.content.Context;
 import java.io.File;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -20,10 +22,11 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class BmobManager {
 
-//    private static final String BMOB_SDK_ID = "fe48a541b5d83a582790189443337933"; //自己的key
-    private static final String BMOB_SDK_ID = "f8efae5debf319071b44339cf51153fc";
+    private static final String BMOB_SDK_ID = "fe48a541b5d83a582790189443337933"; //自己的key
+//    private static final String BMOB_SDK_ID = "f8efae5debf319071b44339cf51153fc";
 
     private static volatile BmobManager mInstance = null;
+
     private BmobManager() {
 
     }
@@ -42,29 +45,32 @@ public class BmobManager {
 
     //初始化Bmob
     public void initBmob(Context mContent) {
-        Bmob.initialize(mContent,BMOB_SDK_ID);
+        Bmob.initialize(mContent, BMOB_SDK_ID);
     }
 
     /**
      * 判断Bmob中user的登录状态
+     *
      * @return
      */
-    public boolean isLogin(){
+    public boolean isLogin() {
         return BmobUser.isLogin();
     }
 
 
     /**
      * 获取本地对象
+     *
      * @return
      */
-    public IMUser getUser(){
+    public IMUser getUser() {
         return BmobUser.getCurrentUser(IMUser.class);
     }
 
 
     /**
      * 发送短信验证码
+     *
      * @param phone    指定手机号码
      * @param listener 回调
      */
@@ -75,6 +81,7 @@ public class BmobManager {
 
     /**
      * 通过手机号码注册或登录
+     *
      * @param phone    手机号码
      * @param code     短信验证码
      * @param listener 对结果的回调
@@ -87,10 +94,11 @@ public class BmobManager {
      * 更新用户第一次上传到头像和昵称
      * 1、上传文件，拿到地址
      * 2、更新用户信息
+     *
      * @param file
      * @param nickName
      */
-    public void uploadFirstPhotoAndNickname(File file , final String nickName, final OnUploadPhotoListener onUploadPhotoListener){
+    public void uploadFirstPhotoAndNickname(File file, final String nickName, final OnUploadPhotoListener onUploadPhotoListener) {
         final IMUser imUser = getUser();
         //上传文件
         final BmobFile bmobFile = new BmobFile(file);
@@ -98,7 +106,7 @@ public class BmobManager {
             @Override
             public void done(BmobException e) {
                 //上传成功
-                if(e == null){
+                if (e == null) {
                     //更新用户信息
                     imUser.setNickName(nickName);
                     imUser.setPhoto(bmobFile.getUrl());
@@ -119,12 +127,43 @@ public class BmobManager {
         });
     }
 
-    //让外部能拿到用户更新的结果，进行对应的操作
+    //让外部能拿到用户更新头像和昵称的结果，进行对应的操作
     public interface OnUploadPhotoListener {
 
         void OnUpdateDone();
 
         void OnUpdateFail(BmobException e);
     }
+
+    /**
+     * 查询操作比较多，这里做个基类
+     *
+     * @param key      列名
+     * @param values   列值
+     * @param listener 对外公布的接口，让外部获取查询结果：一个list结果集和一个BmobException
+     */
+    public void baseQuery(String key, String values, FindListener<IMUser> listener) {
+        BmobQuery<IMUser> query = new BmobQuery<>();
+        query.addWhereEqualTo(key, values);
+        query.findObjects(listener);
+    }
+
+    /**
+     * 查询所有用户
+     * @param listener
+     */
+    public void queryAllUser(FindListener<IMUser> listener){
+        BmobQuery<IMUser> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
+
+    /**
+     * 通过电话号码查询用户
+     */
+    public void queryPhoneUser(String phone, FindListener<IMUser> listener) {
+        //查询mobilePhoneNumber列中 = phone 的
+        baseQuery("mobilePhoneNumber", phone, listener);
+    }
+
 
 }

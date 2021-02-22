@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.dongjian.framwork.base.BaseActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.MyData;
+import com.dongjian.framwork.java.SimulationData;
 import com.dongjian.framwork.utils.LogUtils;
 
 import net.dongjian.meet.R;
@@ -40,33 +41,22 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.zeng:
-                MyData myData = new MyData();
-                myData.setName("张三");
-                myData.setSex(0);
-                myData.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        if (e == null) {
-                            LogUtils.e("新增成功");
-                        }else{
-                            LogUtils.e(e.toString());
-                        }
-                    }
-                });
+//                MyData myData = new MyData();
+//                myData.setName("张三");
+//                myData.setSex(0);
+//                myData.save(new SaveListener<String>() {
+//                    @Override
+//                    public void done(String s, BmobException e) {
+//                        if (e == null) {
+//                            LogUtils.e("新增成功");
+//                        }else{
+//                            LogUtils.e(e.toString());
+//                        }
+//                    }
+//                });
                 break;
             case R.id.shan:
-                MyData my = new MyData();
-                my.delete("1da6739022", new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            LogUtils.e("删除成功");
-                        }else{
-                            LogUtils.e(e.toString());
-                        }
-                    }
-                });
-
+//                SimulationData.testData();
 
                 break;
             case R.id.gai:

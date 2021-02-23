@@ -66,7 +66,7 @@
                     android:text="Age" />
 
             </LinearLayout>
-<!--这里有个看不见的linearLayout：在联系人的时候用到-->
+<!--这里有个看不见的linearLayout：在通讯录查找用户的时候用到-->
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/ll_contact_info"

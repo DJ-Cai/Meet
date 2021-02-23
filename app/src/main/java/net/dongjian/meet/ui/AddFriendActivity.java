@@ -1,5 +1,7 @@
 package net.dongjian.meet.ui;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dongjian.framwork.adapter.CommonAdapter;
+import com.dongjian.framwork.adapter.CommonViewHolder;
 import com.dongjian.framwork.base.BaseBackActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.IMUser;
@@ -37,6 +41,10 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class AddFriendActivity extends BaseBackActivity implements View.OnClickListener {
 
+    //多type：标题和内容
+    public static final int TYPE_TITLE = 0;
+    public static final int TYPE_CONTENT = 1;
+
     private LinearLayout ll_to_contact;
     private EditText et_phone;
     private ImageView iv_search;
@@ -46,7 +54,7 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
     private View include_empty_view;
 
     //RecyclerView的适配器和数据源
-    private AddFriendAdapter mAddFriendAdapter;
+    private CommonAdapter<AddFriendModel> mAddFriendAdapter;
     private List<AddFriendModel> mList = new ArrayList<>();
 
     @Override
@@ -59,14 +67,14 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
 
     private void initView() {
 
-        ll_to_contact = (LinearLayout) findViewById(R.id.ll_to_contact);
+//        ll_to_contact = (LinearLayout) findViewById(R.id.ll_to_contact);
         et_phone = (EditText) findViewById(R.id.et_phone);
         iv_search = (ImageView) findViewById(R.id.iv_search);
         mSearchResultView = (RecyclerView) findViewById(R.id.mSearchResultView);
 
         include_empty_view = findViewById(R.id.include_empty_view);
 
-        ll_to_contact.setOnClickListener(this);
+//        ll_to_contact.setOnClickListener(this);
         iv_search.setOnClickListener(this);
 
         //RecyclerView列表的实现
@@ -75,25 +83,56 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
         //设置下划线
         mSearchResultView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         //适配器
-        mAddFriendAdapter = new AddFriendAdapter(this, mList);
-        mSearchResultView.setAdapter(mAddFriendAdapter);
-
-        //RecyclerView的点击事件
-        mAddFriendAdapter.setOnClickListener(new AddFriendAdapter.OnClickListener() {
+        //原本：mAddFriendAdapter = new AddFriendAdapter(this, mList); 然后再通过addFriendAdapter进行系列操作
+        //现在：通过万能适配Adpater来做
+        mAddFriendAdapter = new CommonAdapter<>(mList, new CommonAdapter.OnMoreBindDataListener<AddFriendModel>() {
             @Override
-            public void OnClick(int position) {
-                Toast.makeText(AddFriendActivity.this, "position" + position, Toast.LENGTH_SHORT).show();
+            public int getItemType(int position) {
+                return mList.get(position).getType();
+            }
+
+            @Override
+            public void onBindViewHolder(AddFriendModel model, CommonViewHolder viewHolder, int type, int position) {
+                if (type == TYPE_TITLE) {
+                    viewHolder.setText(R.id.tv_title, model.getTitle());
+                } else if (type == TYPE_CONTENT) {
+                    //设置头像、性别、昵称、年龄、描述
+                    viewHolder.setImageUrl(AddFriendActivity.this, R.id.iv_photo, model.getPhoto());
+                    viewHolder.setImageResource(R.id.iv_sex,
+                            model.isSex() ? R.drawable.img_boy_icon : R.drawable.img_girl_icon);
+                    viewHolder.setText(R.id.tv_nickname, model.getNickName());
+                    viewHolder.setText(R.id.tv_age, model.getAge() + getString(R.string.text_search_age));
+                    viewHolder.setText(R.id.tv_desc, model.getDesc());
+                }
+            }
+
+            @Override
+            public int getLayoutId(int type) {
+                if(type == TYPE_TITLE){
+                    return R.layout.layout_search_title_item;
+                }else if(type == TYPE_CONTENT){
+                    return R.layout.layout_search_user_item;
+                }
+                return 0;
             }
         });
+        mSearchResultView.setAdapter(mAddFriendAdapter);
+
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            //跳转到从通讯录导入
-            case R.id.ll_to_contact:
-                break;
+//            //跳转到从通讯录导入
+//            case R.id.ll_to_contact:
+//                //先进行权限判断，因为用户可能一开始同意了权限申请，但是后面又自己设置了拒绝，所以这里需要再次进行权限判断
+//                if(checkPermission(Manifest.permission.READ_CONTACTS)){
+//                    //startActivity(new Intent(this,ContactFirendActivity.class));
+//                }else{
+//                    requestPermission(new String[] {Manifest.permission.READ_CONTACTS});
+//                }
+//                break;
             //查询电话号码
             case R.id.iv_search:
                 queryPhoneUser();
@@ -172,7 +211,7 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
      */
     private void addTitle(String title) {
         AddFriendModel model = new AddFriendModel();
-        model.setType(AddFriendAdapter.TYPE_TITLE);
+        model.setType(TYPE_TITLE);
         //标题内容是传进来的内容
         model.setTitle(title);
         mList.add(model);
@@ -185,7 +224,7 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
      */
     private void addContent(IMUser imUser) {
         AddFriendModel model = new AddFriendModel();
-        model.setType(AddFriendAdapter.TYPE_CONTENT);
+        model.setType(TYPE_CONTENT);
         model.setUserId(imUser.getObjectId());
         model.setPhoto(imUser.getPhoto());
         model.setSex(imUser.isSex());

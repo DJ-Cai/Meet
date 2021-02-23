@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //这个model就是RecyclerView可以多type的关键
     private List<AddFriendModel> mList;
     private LayoutInflater inflater;
+
 
     //设置点击事件
     private OnClickListener onClickListener;
@@ -85,6 +87,13 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ContentViewHolder)holder).tv_nickname.setText(model.getNickName());
             ((ContentViewHolder)holder).tv_age.setText(model.getAge() + "岁");
             ((ContentViewHolder)holder).tv_desc.setText(model.getDesc());
+
+            //这里就是用通讯录查找的了，格式和直接查找的不太一样
+            if(model.isContact()){
+                ((ContentViewHolder)holder).ll_contact_info.setVisibility(View.VISIBLE);
+                ((ContentViewHolder)holder).tv_contact_name.setText(model.getContactName());
+                ((ContentViewHolder)holder).tv_contact_phone.setText(model.getContactPhone());
+            }
         }
 
         //设置好view的点击事件
@@ -135,6 +144,11 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private TextView tv_age;
         private TextView tv_desc ;
 
+        //通过通讯录查找用户的时候，格式稍微有所不同
+        private LinearLayout ll_contact_info;
+        private TextView tv_contact_name;
+        private TextView tv_contact_phone;
+
         public ContentViewHolder(View itemView){
             super(itemView );
             iv_photo = itemView.findViewById(R.id.iv_photo);
@@ -143,6 +157,9 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tv_age = itemView.findViewById(R.id.tv_age);
             tv_desc = itemView.findViewById(R.id.tv_desc);
 
+            ll_contact_info = itemView.findViewById(R.id.ll_contact_info);
+            tv_contact_name = itemView.findViewById(R.id.tv_contact_name);
+            tv_contact_phone = itemView.findViewById(R.id.tv_contact_phone);
         }
     }
 

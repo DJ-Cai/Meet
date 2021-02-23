@@ -33,7 +33,12 @@ public class BaseActivity extends AppCompatActivity {
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.ACCESS_FINE_LOCATION
     };
 
     //保存没有同意的权限---未申请权限
@@ -92,11 +97,10 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * 请求单个权限
      * @param mPermissions
-     * @param requestCode
      */
-    protected void requestPermission(String[] mPermissions , int requestCode){
+    protected void requestPermission(String[] mPermissions){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(mPermissions,requestCode);
+            requestPermissions(mPermissions,PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -107,7 +111,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void requestPermissionsAll(OnPermissionsResult permissionsResult){
         this.permissionsResult = permissionsResult;
         //将未申请权限的list集合转为String数组
-        requestPermission((String[]) mPerList.toArray(new String[mPerList.size()]) , requestCode);
+        requestPermission((String[]) mPerList.toArray(new String[mPerList.size()]));
     }
 
     //外部收到反馈后要进行处理

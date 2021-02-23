@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.dongjian.framwork.bmob.BmobManager;
+import com.dongjian.framwork.cloud.CloudManager;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 
@@ -18,7 +19,7 @@ public class Framework {
 
     }
 
-    public static Framework getFramwork(){
+    public static Framework getFramework(){
         if(mFramwork == null){
             synchronized (Framework.class){
                 if(mFramwork == null){
@@ -33,6 +34,7 @@ public class Framework {
         LogUtils.i("initFramework");
         SpUtils.getInstance().initSp(mContext);
         BmobManager.getmInstance().initBmob(mContext);
+        CloudManager.getInstance().initCloud(mContext);
     }
 
 }

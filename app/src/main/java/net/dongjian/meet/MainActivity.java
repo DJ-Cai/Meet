@@ -17,10 +17,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.entity.Constants;
+import com.dongjian.framwork.gson.TokenBean;
 import com.dongjian.framwork.manager.DialogManager;
+import com.dongjian.framwork.manager.HttpManager;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 import com.dongjian.framwork.view.DialogView;
+import com.google.gson.Gson;
 
 import net.dongjian.meet.fragment.ChatFragment;
 import net.dongjian.meet.fragment.MeFragment;
@@ -29,13 +32,22 @@ import net.dongjian.meet.fragment.StarFragment;
 import net.dongjian.meet.service.CloudService;
 import net.dongjian.meet.ui.FirstUploadActivity;
 
+import java.util.HashMap;
 import java.util.List;
 
-import static com.dongjian.framwork.entity.Constants.SP_TOKEN;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Fragment的优化
- * 1.初始化Frahment
+ * 1.初始化Fragment
  * 2.显示Fragment
  * 3.隐藏所有的Fragment
  * 4.恢复Fragment
@@ -73,6 +85,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
     //在检查token的时候发现需要跳转到上传头像和昵称的地方时的回调
     public static final int UPLOAD_REQUEST_CODE = 1002;
+
+    private Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +133,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         //切换到默认的选项卡--星球
         checkMainTab(0);
 
-//        checkToken();   //域名申请下来以后可以打开
+        checkToken();   //域名申请下来以后可以打开
 
     }
 
@@ -130,14 +144,14 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         //获取TOKEN 需要三个参数：1、用户ID  2、头像地址 3、昵称
         String token = SpUtils.getInstance().getString(Constants.SP_TOKEN,"");
         if(!TextUtils.isEmpty(token)){
-            //启动云服务 -- 连接融云
-            startService(new Intent(this, CloudService.class));
+            startCloudService();
         }else{
             //token为空，需要获取这三个参数:用户ID永远不变，不需要再次获取了
             String tokenPhoto = BmobManager.getmInstance().getUser().getTokenPhoto();
             String tokenName = BmobManager.getmInstance().getUser().getTokenNickName();
             if(!TextUtils.isEmpty(tokenPhoto) && !TextUtils.isEmpty(tokenName)){
                 //创建token
+                //LogUtils.e("checkToken 来这里的" );
                 creatToken();
             }else{
                 //tokenPhoto或tokenName为空，则证明用户尚未注册,则创建上传头像和昵称的提示框
@@ -180,9 +194,59 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
     /**
      * 创建token
+     * 1、再融云后台获取Token
+     * 2、连接融云
      */
     private void creatToken() {
-        LogUtils.e("createToken成功啦");
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userId" , BmobManager.getmInstance().getUser().getObjectId());
+        map.put("name" , BmobManager.getmInstance().getUser().getTokenNickName());
+        map.put("portraitUri" , BmobManager.getmInstance().getUser().getTokenPhoto());
+
+        //通过OkHTTP请求Token  -- 用到了RxJava
+
+        disposable = Observable.create(new ObservableOnSubscribe<String>(){
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                //执行请求过程
+                String json = HttpManager.getInstance().postCloudToken(map);
+                emitter.onNext(json);
+                emitter.onComplete();
+            }
+            //线程调度
+        }).subscribeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        parsingCloudToken(s);
+                    }
+                });
+
+    }
+
+    /**
+     * 启动云服务 -- 连接融云
+     */
+    private void startCloudService(){
+        startService(new Intent(this, CloudService.class));
+    }
+
+    /**
+     * 解析token
+     * @param s
+     */
+    private void parsingCloudToken(String s) {
+        //得到token实体类
+        TokenBean tokenBean = new Gson().fromJson(s,TokenBean.class);
+        if(tokenBean.getCode() == 200){
+            if(!TextUtils.isEmpty(tokenBean.getToken())){
+                //保存token
+                SpUtils.getInstance().putString(Constants.SP_TOKEN,tokenBean.getToken());
+                //连接融云
+                startCloudService();
+            }
+        }
     }
 
     /**
@@ -372,5 +436,13 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
                 LogUtils.i("noPermissions:" + noPermissions.toString());
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(disposable.isDisposed()){
+            disposable.dispose();
+        }
     }
 }

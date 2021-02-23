@@ -1,3 +1,4 @@
+include ':IMLib'
 include ':framework'
 include ':mylibrary'
 include ':app'

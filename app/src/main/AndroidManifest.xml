@@ -22,7 +22,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.LoginActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
         </activity>
         <!--    主页     -->
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppThemeFull" />
         <!--    引导页    -->
         <activity

@@ -101,10 +101,10 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
         btn_login.setOnClickListener(this);
 
         //优化：读取之前留下的电话号码
-        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
-        if (!TextUtils.isEmpty(phone)) {
-            et_phone.setText(phone);
-        }
+//        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
+//        if (!TextUtils.isEmpty(phone)) {
+//            et_phone.setText(phone);
+//        }
     }
 
     @Override
@@ -147,7 +147,7 @@ public class LoginActivity extends BaseUIActivity implements View.OnClickListene
                     //登录成功
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     //（体验优化：保存此次登录用的手机号码，下次不用重新输入手机号码）
-                    SpUtils.getInstance().putString(Constants.SP_PHONE, phone);
+                    //SpUtils.getInstance().putString(Constants.SP_PHONE, phone);
                     finish();
                 } else {
                     //登录失败则弹出错误原因

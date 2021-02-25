@@ -2,6 +2,8 @@ package com.dongjian.framwork.bmob;
 
 import android.content.Context;
 
+import com.dongjian.framwork.utils.CommonUtils;
+
 import java.io.File;
 
 import cn.bmob.v3.Bmob;
@@ -165,5 +167,206 @@ public class BmobManager {
         baseQuery("mobilePhoneNumber", phone, listener);
     }
 
+    /**
+     * 根据objectId查询用户
+     *
+     * @param objectId
+     * @param listener
+     */
+    public void queryObjectIdUser(String objectId, FindListener<IMUser> listener) {
+        baseQuery("objectId", objectId, listener);
+    }
 
+    /**
+     * 查询我的好友
+     *
+     * @param listener
+     */
+    public void queryMyFriends(FindListener<Friend> listener) {
+        BmobQuery<Friend> query = new BmobQuery<>();
+        query.addWhereEqualTo("user", getUser());
+        query.findObjects(listener);
+    }
+//
+//
+//
+//    /**
+//     * 查询所有的广场的数据
+//     *
+//     * @param listener
+//     */
+//    public void queryAllSquare(FindListener<SquareSet> listener) {
+//        BmobQuery<SquareSet> query = new BmobQuery<>();
+//        query.findObjects(listener);
+//    }
+//
+//    /**
+//     * 查询私有库
+//     *
+//     * @param listener
+//     */
+//    public void queryPrivateSet(FindListener<PrivateSet> listener) {
+//        BmobQuery<PrivateSet> query = new BmobQuery<>();
+//        query.findObjects(listener);
+//    }
+//
+//    /**
+//     * 查询缘分池
+//     *
+//     * @param listener
+//     */
+//    public void queryFateSet(FindListener<FateSet> listener) {
+//        BmobQuery<FateSet> query = new BmobQuery<>();
+//        query.findObjects(listener);
+//    }
+//
+//    /**
+//     * 添加好友
+//     *
+//     * @param imUser
+//     * @param listener
+//     */
+//    public void addFriend(IMUser imUser, SaveListener<String> listener) {
+//        Friend friend = new Friend();
+//        friend.setUser(getUser());
+//        friend.setFriendUser(imUser);
+//        friend.save(listener);
+//    }
+//
+//    /**
+//     * 添加私有库
+//     *
+//     * @param listener
+//     */
+//    public void addPrivateSet(SaveListener<String> listener) {
+//        PrivateSet set = new PrivateSet();
+//        set.setUserId(getUser().getObjectId());
+//        set.setPhone(getUser().getMobilePhoneNumber());
+//        set.save(listener);
+//    }
+//
+//    /**
+//     * 添加到缘分池中
+//     *
+//     * @param listener
+//     */
+//    public void addFateSet(SaveListener<String> listener) {
+//        FateSet set = new FateSet();
+//        set.setUserId(getUser().getObjectId());
+//        set.save(listener);
+//    }
+//
+//    /**
+//     * 删除缘分池
+//     *
+//     * @param id
+//     * @param listener
+//     */
+//    public void delFateSet(String id, UpdateListener listener) {
+//        FateSet set = new FateSet();
+//        set.setObjectId(id);
+//        set.delete(listener);
+//    }
+//
+//    /**
+//     * 删除私有库
+//     *
+//     * @param id
+//     * @param listener
+//     */
+//    public void delPrivateSet(String id, UpdateListener listener) {
+//        PrivateSet set = new PrivateSet();
+//        set.setObjectId(id);
+//        set.delete(listener);
+//    }
+//
+//    /**
+//     * 发布广场
+//     *
+//     * @param mediaType 媒体类型
+//     * @param text      文本
+//     * @param path      路径
+//     */
+//    public void pushSquare(int mediaType, String text, String path, SaveListener<String> listener) {
+//        SquareSet squareSet = new SquareSet();
+//        squareSet.setUserId(getUser().getObjectId());
+//        squareSet.setPushTime(System.currentTimeMillis());
+//
+//        squareSet.setText(text);
+//        squareSet.setMediaUrl(path);
+//        squareSet.setPushType(mediaType);
+//        squareSet.save(listener);
+//    }
+
+//    /**
+//     * 通过ID添加好友
+//     *
+//     * @param id
+//     * @param listener
+//     */
+//    public void addFriend(String id, final SaveListener<String> listener) {
+//        queryObjectIdUser(id, new FindListener<IMUser>() {
+//            @Override
+//            public void done(List<IMUser> list, BmobException e) {
+//                if (e == null) {
+//                    if (CommonUtils.isEmpty(list)) {
+//                        IMUser imUser = list.get(0);
+//                        addFriend(imUser, listener);
+//                    }
+//                }
+//            }
+//        });
+//    }
+//
+//    /**
+//     * 删除好友
+//     *
+//     * @param id
+//     * @param listener
+//     */
+//    public void deleteFriend(final String id, final UpdateListener listener) {
+//        /**
+//         * 从自己的好友列表中删除
+//         * 如果需要，也可以从对方好友中删除
+//         */
+//        queryMyFriends(new FindListener<Friend>() {
+//            @Override
+//            public void done(List<Friend> list, BmobException e) {
+//                if (e == null) {
+//                    if (CommonUtils.isEmpty(list)) {
+//                        for (int i = 0; i < list.size(); i++) {
+//                            if (list.get(i).getFriendUser().getObjectId().equals(id)) {
+//                                Friend friend = new Friend();
+//                                friend.setObjectId(list.get(i).getObjectId());
+//                                friend.delete(listener);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//    }
+//
+//    public void addUpdateSet() {
+//        UpdateSet updateSet = new UpdateSet();
+//        updateSet.setVersionCode(2);
+//        updateSet.setPath("---");
+//        updateSet.setDesc("---");
+//        updateSet.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                LogUtils.i("s:" + s + "e:" + e.toString());
+//            }
+//        });
+//    }
+//
+//    /**
+//     * 查询更新
+//     *
+//     * @param listener
+//     */
+//    public void queryUpdateSet(FindListener<UpdateSet> listener) {
+//        BmobQuery<UpdateSet> bmobQuery = new BmobQuery<>();
+//        bmobQuery.findObjects(listener);
+//    }
 }

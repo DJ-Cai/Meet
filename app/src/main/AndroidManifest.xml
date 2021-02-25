@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Meet">
-
+        <!--小米适配-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
         <!--   Bmob      -->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
@@ -22,7 +25,7 @@
 
         <!--    启动页   -->
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +34,7 @@
         </activity>
         <!--    主页     -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.LoginActivity"
             android:theme="@style/AppThemeFull" />
         <!--    引导页    -->
         <activity
@@ -45,6 +48,8 @@
         <activity android:name=".test.TestActivity" />
         <activity android:name=".ui.FirstUploadActivity"/>
         <activity android:name=".ui.AddFriendActivity"/>
+        <activity android:name=".ui.UserInfoActivity"
+            android:theme="@style/AppThemeFull"/>
 
 <!--        云服务-->
         <service android:name=".service.CloudService"/>

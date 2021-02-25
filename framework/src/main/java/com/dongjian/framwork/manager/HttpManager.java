@@ -43,7 +43,7 @@ public class HttpManager {
         //参数:时间戳，随机数
         String TimeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         String Nonce = String.valueOf(Math.floor(Math.random() * 10000));
-        String Signature = SHA1.sha1( CloudManager.SECRET + Nonce + TimeStamp);
+        String Signature = SHA1.sha1( CloudManager.CLOUD_SECRET + Nonce + TimeStamp);
         //将map中的参数填充到FormBody里
         FormBody.Builder builder = new FormBody.Builder();
         for(String key : map.keySet()){
@@ -53,9 +53,9 @@ public class HttpManager {
         RequestBody requestBody = builder.build();
         //添加签名规则
         Request request = new Request.Builder()
-                .url(CloudManager.URL)
+                .url(CloudManager.TOKEN_URL)
                 .addHeader("Timestamp",TimeStamp)
-                .addHeader("App-Key",CloudManager.KEY)
+                .addHeader("App-Key",CloudManager.CLOUD_KEY)
                 .addHeader("Nonce",Nonce)
                 .addHeader("Signature",Signature)
                 .addHeader("Content-Type","application/x-www-form-urlencoded")

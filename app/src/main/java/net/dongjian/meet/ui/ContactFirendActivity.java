@@ -40,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * FileName: ContactFirendActivity
  * Founder: LiuGuiLin
- * Profile: 从通讯录导入
+ * Profile: 从通讯录导入----取消了
  */
 public class ContactFirendActivity extends BaseBackActivity {
 

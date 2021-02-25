@@ -89,6 +89,8 @@
     <orderEntry type="library" name="Gradle: cn.bmob.android:bmob-sdk:3.7.8@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid:2.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.litepal.android:java:3.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.litepal.android:core:3.0.0@aar" level="project" />
     <orderEntry type="module" module-name="Meet.framework" />
     <orderEntry type="module" module-name="Meet.IMLib" />
   </component>

@@ -36,7 +36,7 @@ public class CloudManager {
      * 初始化SDK
      * @param mContext
      */
-    public void initCloud(Context mContext){
+    public void  initCloud(Context mContext){
         RongIMClient.init(mContext);
     }
 

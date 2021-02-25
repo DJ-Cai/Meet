@@ -60,8 +60,6 @@ dependencies {
 //    圆形View
     api 'de.hdodenhof:circleimageview:3.0.0'
 
-//     融云远程依赖
-    api 'cn.rongcloud.sdk:im_lib:4.0.0.1'
 //    Glide
     api 'com.github.bumptech.glide:glide:4.12.0'
 

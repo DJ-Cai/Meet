@@ -24,8 +24,6 @@ allprojects {
         maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
         //融云的maven仓库地址
         maven {url  "https://dl.bintray.com/rongcloud/maven"}
-        //解决相应依赖下载
-        maven{ url "http://maven.aliyun.com/nexus/content/groups/public/"}
     }
 }
 

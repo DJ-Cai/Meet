@@ -58,7 +58,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepath"/>
         </provider>
-<!--离线消息-->
+<!--融云的接收离线消息-->
         <receiver
             android:name=".receiver.SealNotificationReceiver"
             android:exported="true">

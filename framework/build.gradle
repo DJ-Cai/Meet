@@ -65,4 +65,6 @@ dependencies {
     api project(path: ':IMLib')
 //    litepal
     api 'org.litepal.android:java:3.0.0'
+//    eventbus
+    api 'org.greenrobot:eventbus:3.2.0'
 }

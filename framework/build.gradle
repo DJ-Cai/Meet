@@ -43,6 +43,7 @@ dependencies {
 
     //api:外部也可以引用
     api rootProject.ext.dependencies["appcompat"]
+    //    tablelayout
     api rootProject.ext.dependencies["material"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -67,8 +68,7 @@ dependencies {
     api 'org.litepal.android:java:3.0.0'
 //    eventbus
     api 'org.greenrobot:eventbus:3.2.0'
-//    tablelayout
-    api 'com.google.android.material:material:1.0.0'
+
 //    下拉刷新
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }

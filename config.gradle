@@ -33,7 +33,5 @@ ext {
     //仓库
     maven = [
             "bmobUrl": 'https://dl.bintray.com/chaozhouzhang/maven',
-            "bmobUrl2": 'https://raw.github.com/bmob/bmob-android-sdk/master',
-
     ]
 }

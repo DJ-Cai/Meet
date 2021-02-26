@@ -199,7 +199,7 @@ public class ChatRecordFragment extends BaseFragment implements SwipeRefreshLayo
     //下拉刷新
     @Override
     public void onRefresh() {
-        //正在刷新则不刷
+        //在刷新就去再查
         if (mChatRecordRefreshLayout.isRefreshing()) {
             queryChatRecord();
         }

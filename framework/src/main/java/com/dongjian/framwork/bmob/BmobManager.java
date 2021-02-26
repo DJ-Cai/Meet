@@ -5,6 +5,7 @@ import android.content.Context;
 import com.dongjian.framwork.utils.CommonUtils;
 
 import java.io.File;
+import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -15,6 +16,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -219,19 +221,39 @@ public class BmobManager {
 //        BmobQuery<FateSet> query = new BmobQuery<>();
 //        query.findObjects(listener);
 //    }
-//
-//    /**
-//     * 添加好友
-//     *
-//     * @param imUser
-//     * @param listener
-//     */
-//    public void addFriend(IMUser imUser, SaveListener<String> listener) {
-//        Friend friend = new Friend();
-//        friend.setUser(getUser());
-//        friend.setFriendUser(imUser);
-//        friend.save(listener);
-//    }
+
+    /**
+     * 添加好友
+     *
+     * @param imUser
+     * @param listener
+     */
+    public void addFriend(IMUser imUser, SaveListener<String> listener) {
+        Friend friend = new Friend();
+        friend.setUser(getUser());
+        friend.setFriendUser(imUser);
+        friend.save(listener);
+    }
+
+    /**
+     * 通过ID添加好友
+     *
+     * @param id
+     * @param listener
+     */
+    public void addFriend(String id, final SaveListener<String> listener) {
+        queryObjectIdUser(id, new FindListener<IMUser>() {
+            @Override
+            public void done(List<IMUser> list, BmobException e) {
+                if (e == null) {
+                    if (CommonUtils.isNotEmpty(list)) {
+                        IMUser imUser = list.get(0);
+                        addFriend(imUser, listener);
+                    }
+                }
+            }
+        });
+    }
 //
 //    /**
 //     * 添加私有库
@@ -298,25 +320,7 @@ public class BmobManager {
 //        squareSet.save(listener);
 //    }
 
-//    /**
-//     * 通过ID添加好友
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void addFriend(String id, final SaveListener<String> listener) {
-//        queryObjectIdUser(id, new FindListener<IMUser>() {
-//            @Override
-//            public void done(List<IMUser> list, BmobException e) {
-//                if (e == null) {
-//                    if (CommonUtils.isEmpty(list)) {
-//                        IMUser imUser = list.get(0);
-//                        addFriend(imUser, listener);
-//                    }
-//                }
-//            }
-//        });
-//    }
+
 //
 //    /**
 //     * 删除好友

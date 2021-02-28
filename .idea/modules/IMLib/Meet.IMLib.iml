@@ -45,6 +45,11 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: ./IMLib/libs/chatroom-5.0.0.aar" level="project" />
+    <orderEntry type="library" name="Gradle: ./IMLib/libs/customservice-5.0.0.aar" level="project" />
+    <orderEntry type="library" name="Gradle: ./IMLib/libs/discussion-5.0.0.aar" level="project" />
+    <orderEntry type="library" name="Gradle: ./IMLib/libs/location-5.0.0.aar" level="project" />
+    <orderEntry type="library" name="Gradle: ./IMLib/libs/publicservice-5.0.0.aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.core:core:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.0.0@aar" level="project" />

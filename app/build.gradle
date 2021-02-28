@@ -8,6 +8,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
+        multiDexEnabled true
         applicationId rootProject.ext.android["applicationId"]
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -16,9 +17,9 @@ android {
 
 //        testInstrumentationRunner rootProject.ext.android["testInstrumentationRunner"]
 
-//        ndk {
-//            abiFilters "armeabi-v7a", "arm64-v8a"
-//        }
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a" ,"armeabi" , "x86" ,"x86_64"
+            }
     }
 
     buildTypes {
@@ -34,7 +35,6 @@ android {
 }
 
 dependencies {
-
     //  添加Framework依赖     根目录下的framework包
     implementation project(path: ':framework')
 

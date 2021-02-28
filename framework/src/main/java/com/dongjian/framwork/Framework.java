@@ -1,7 +1,8 @@
 package com.dongjian.framwork;
 
 import android.content.Context;
-import android.widget.Toast;
+
+//import androidx.multidex.MultiDex;
 
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.cloud.CloudManager;
@@ -38,6 +39,8 @@ public class Framework {
         BmobManager.getmInstance().initBmob(mContext);
         CloudManager.getInstance().initCloud(mContext);
         LitePal.initialize(mContext);
+
+
     }
 
 }

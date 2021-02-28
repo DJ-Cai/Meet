@@ -13,26 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Meet">
-        <!--小米适配-->
-        <meta-data
-            android:name="notch.config"
-            android:value="portrait|landscape" />
-        <!--   Bmob      -->
-        <provider
-            android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="net.dongjian.meet.BmobContentProvider">
-        </provider>
 
-        <!--    启动页   -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.IndexActivity"
             android:theme="@style/AppThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--    主页     -->
+
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/AppThemeFull" />
@@ -42,7 +32,7 @@
             android:theme="@style/AppThemeFull" />
         <!--    登录页    -->
         <activity
-            android:name=".ui.IndexActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppThemeFull" />
 
         <activity android:name=".test.TestActivity" />
@@ -50,6 +40,12 @@
         <activity android:name=".ui.AddFriendActivity"/>
         <activity android:name=".ui.UserInfoActivity"
             android:theme="@style/AppThemeFull"/>
+        <activity android:name=".ui.ChatActivity"/>
+        <activity android:name=".ui.ContactFirendActivity"/>
+        <activity android:name=".ui.ImagePreviewActivity"
+            android:theme="@style/AppThemeFull" />
+        <activity android:name=".ui.NewFriendActivity"/>
+
 
 <!--        云服务-->
         <service android:name=".service.CloudService"/>
@@ -73,10 +69,26 @@
                 <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
             </intent-filter>
         </receiver>
+
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="bddf19633ae135f09886feb68f9ea132	" />
+
+        <!--小米适配-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+        <!--   Bmob      -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="net.dongjian.meet.BmobContentProvider">
+        </provider>
+
+
+
+
     </application>
-
-
-
-
 
 </manifest>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 
 
+import com.dongjian.framwork.event.EventManager;
+import com.dongjian.framwork.event.MessageEvent;
 import com.dongjian.framwork.utils.LogUtils;
 
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ import java.util.logging.Handler;
 //import io.rong.calllib.RongCallCommon;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.ImageMessage;
@@ -51,16 +54,10 @@ public class CloudManager {
     //同意添加好友的消息
     public static final String TYPE_ARGEED_FRIEND = "TYPE_ARGEED_FRIEND";
 
-    //来电铃声
-    public static final String callAudioPath = "http://downsc.chinaz.net/Files/DownLoad/sound1/201501/5363.wav";
-    //挂断铃声
-    public static final String callAudioHangup = "http://downsc.chinaz.net/Files/DownLoad/sound1/201501/5351.wav";
 
     private static volatile CloudManager mInstnce = null;
 
-    private CloudManager() {
-
-    }
+    private CloudManager() {}
 
     public static CloudManager getInstance() {
         if (mInstnce == null) {
@@ -109,15 +106,15 @@ public class CloudManager {
 
         });
     }
-
-    /**
-     * 监听连接状态
-     *
-     * @param listener
-     */
-    public void setConnectionStatusListener(RongIMClient.ConnectionStatusListener listener) {
-        RongIMClient.setConnectionStatusListener(listener);
-    }
+//
+//    /**
+//     * 监听连接状态
+//     *
+//     * @param listener
+//     */
+//    public void setConnectionStatusListener(RongIMClient.ConnectionStatusListener listener) {
+//        RongIMClient.setConnectionStatusListener(listener);
+//    }
 
 //    /**
 //     * 发送服务器连接状态
@@ -147,13 +144,13 @@ public class CloudManager {
         RongIMClient.getInstance().disconnect();
     }
 
-    /**
-     * 退出登录
-     */
-    public void logout() {
-        RongIMClient.getInstance().logout();
-    }
-
+//    /**
+//     * 退出登录
+//     */
+//    public void logout() {
+//        RongIMClient.getInstance().logout();
+//    }
+//
     /**
      * 接收消息的监听器
      *
@@ -164,34 +161,7 @@ public class CloudManager {
     }
 
     /**
-     * 发送消息的结果回调
-     */
-    private IRongCallback.ISendMessageCallback iSendMessageCallback
-            = new IRongCallback.ISendMessageCallback() {
-
-        @Override
-        public void onAttached(Message message) {
-            // 消息成功存到本地数据库的回调
-        }
-
-        @Override
-        public void onSuccess(Message message) {
-            // 消息发送成功的回调
-            LogUtils.e("消息发送成功 sendMessage onSuccess ");
-        }
-
-        @Override
-        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-            // 消息发送失败的回调
-            LogUtils.e(" 消息发送失败 sendMessage onError:" + errorCode);
-        }
-    };
-
-    /**
      * 发送文本消息
-     * 一个手机 发送
-     * 另外一个手机 接收
-     *
      * @param msg
      * @param targetId
      */
@@ -227,6 +197,67 @@ public class CloudManager {
         }
     }
 
+    /**
+     * 发送图片消息
+     *
+     * @param targetId 对方ID
+     * @param file     文件
+     */
+    public void sendImageMessage(String targetId, File file) {
+        //构建实例
+        ImageMessage imageMessage = ImageMessage.obtain(Uri.fromFile(file), Uri.fromFile(file), true);
+        RongIMClient.getInstance().sendImageMessage(
+                Conversation.ConversationType.PRIVATE,
+                targetId,
+                imageMessage,
+                null,
+                null,
+                sendImageMessageCallback);
+    }
+
+    /**
+     * 发送位置信息
+     *
+     * @param mTargetId
+     * @param lat
+     * @param lng
+     * @param poi
+     */
+    public void sendLocationMessage(String mTargetId, double lat, double lng, String poi) {
+        LocationMessage locationMessage = LocationMessage.obtain(lat, lng, poi, null);
+        io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(
+                mTargetId, Conversation.ConversationType.PRIVATE, locationMessage);
+        RongIMClient.getInstance().sendLocationMessage(message,
+                null, null, iSendMessageCallback);
+    }
+
+    /**
+     * 发送消息的结果回调
+     */
+    private IRongCallback.ISendMessageCallback iSendMessageCallback
+            = new IRongCallback.ISendMessageCallback() {
+
+        @Override
+        public void onAttached(Message message) {
+            // 消息成功存到本地数据库的回调
+        }
+
+        @Override
+        public void onSuccess(Message message) {
+            // 消息发送成功的回调
+            LogUtils.e("消息发送成功 sendMessage onSuccess ");
+        }
+
+        @Override
+        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+            // 消息发送失败的回调
+            LogUtils.e(" 消息发送失败 sendMessage onError:" + errorCode);
+        }
+    };
+
+    /**
+     * 发送图片的结果回调
+     */
     private RongIMClient.SendImageMessageCallback sendImageMessageCallback = new RongIMClient.SendImageMessageCallback() {
         @Override
         public void onAttached(Message message) {
@@ -249,38 +280,6 @@ public class CloudManager {
         }
     };
 
-    /**
-     * 发送图片消息
-     *
-     * @param targetId 对方ID
-     * @param file     文件
-     */
-    public void sendImageMessage(String targetId, File file) {
-        ImageMessage imageMessage = ImageMessage.obtain(Uri.fromFile(file), Uri.fromFile(file), true);
-        RongIMClient.getInstance().sendImageMessage(
-                Conversation.ConversationType.PRIVATE,
-                targetId,
-                imageMessage,
-                null,
-                null,
-                sendImageMessageCallback);
-    }
-//
-//    /**
-//     * 发送位置信息
-//     *
-//     * @param mTargetId
-//     * @param lat
-//     * @param lng
-//     * @param poi
-//     */
-//    public void sendLocationMessage(String mTargetId, double lat, double lng, String poi) {
-//        LocationMessage locationMessage = LocationMessage.obtain(lat, lng, poi, null);
-//        io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(
-//                mTargetId, Conversation.ConversationType.PRIVATE, locationMessage);
-//        RongIMClient.getInstance().sendLocationMessage(message,
-//                null, null, iSendMessageCallback);
-//    }
 
     /**
      * 查询本地的会话记录

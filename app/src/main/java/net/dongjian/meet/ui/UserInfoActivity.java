@@ -273,9 +273,9 @@ public class UserInfoActivity extends BaseUIActivity implements View.OnClickList
                 DialogManager.getInstance().show(mAddFriendDialogView);
                 break;
             case R.id.btn_chat:
-//                ChatActivity.startActivity(UserInfoActivity.this,
-//                        userId, imUser.getNickName(), imUser.getPhoto());
-//                break;
+                ChatActivity.startActivity(UserInfoActivity.this,
+                        userId, imUser.getNickName(), imUser.getPhoto());
+                break;
             case R.id.btn_audio_chat:
                 //窗口权限
 //                if (!checkWindowPermissions()) {

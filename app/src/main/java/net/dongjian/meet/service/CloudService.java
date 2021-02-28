@@ -12,6 +12,7 @@ import com.dongjian.framwork.db.LitePalHelper;
 import com.dongjian.framwork.db.NewFriend;
 import com.dongjian.framwork.entity.Constants;
 import com.dongjian.framwork.event.EventManager;
+import com.dongjian.framwork.event.MessageEvent;
 import com.dongjian.framwork.gson.TextBean;
 import com.dongjian.framwork.utils.CommonUtils;
 import com.dongjian.framwork.utils.LogUtils;
@@ -88,6 +89,11 @@ public class CloudService extends Service {
             TextBean textBean = new Gson().fromJson(content, TextBean.class);
             //普通消息
             if (textBean.getType().equals(CloudManager.TYPE_TEXT)) {
+                MessageEvent event = new MessageEvent(EventManager.FLAG_SEND_TEXT);
+                event.setText(textBean.getMsg());
+                event.setUserId(message.getSenderUserId());
+
+                EventManager.post(event);
 
                 //添加好友消息
             } else if (textBean.getType().equals(CloudManager.TYPE_ADD_FRIEND)) {

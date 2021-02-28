@@ -3,11 +3,8 @@ package net.dongjian.meet.base;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
 
 import com.dongjian.framwork.Framework;
-import com.dongjian.framwork.bmob.BmobManager;
-import com.dongjian.framwork.utils.LogUtils;
 
 public class BaseApp  extends Application {
 

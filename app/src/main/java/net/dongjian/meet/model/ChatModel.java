@@ -16,6 +16,7 @@ public class ChatModel {
 
     //图片
     private String imgUrl;
+    //本地图片
     private File localFile;
 
     //位置

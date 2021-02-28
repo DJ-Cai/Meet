@@ -21,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 多Type--RecyclerView中的布局是多种形式的
+ * 已经用万能适配了，这个保留 但不用了
  */
 public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

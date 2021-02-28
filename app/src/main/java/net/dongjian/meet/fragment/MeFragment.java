@@ -1,11 +1,13 @@
 package net.dongjian.meet.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dongjian.framwork.base.BaseFragment;
 import com.dongjian.framwork.bmob.BmobManager;
@@ -13,6 +15,8 @@ import com.dongjian.framwork.bmob.IMUser;
 import com.dongjian.framwork.helper.GlideHelper;
 
 import net.dongjian.meet.R;
+import net.dongjian.meet.ui.MeInfoActivity;
+import net.dongjian.meet.ui.NewFriendActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,7 +32,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout ll_private_set;
     private LinearLayout ll_share;
     private LinearLayout ll_setting;
-    private LinearLayout ll_notice;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,14 +50,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         ll_private_set = view.findViewById(R.id.ll_private_set);
         ll_share = view.findViewById(R.id.ll_share);
         ll_setting = view.findViewById(R.id.ll_setting);
-        ll_notice = view.findViewById(R.id.ll_notice);
 
         ll_me_info.setOnClickListener(this);
         ll_new_friend.setOnClickListener(this);
         ll_private_set.setOnClickListener(this);
         ll_share.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
-        ll_notice.setOnClickListener(this);
 
         loadMeInfo();
     }
@@ -73,25 +74,24 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ll_me_info:
                 //个人信息
-//                startActivity(new Intent(getActivity(), MeInfoActivity.class));
+                startActivity(new Intent(getActivity(), MeInfoActivity.class));
                 break;
             case R.id.ll_new_friend:
                 //新朋友
-//                startActivity(new Intent(getActivity(), NewFriendActivity.class));
+                startActivity(new Intent(getActivity(), NewFriendActivity.class));
                 break;
             case R.id.ll_private_set:
+                Toast.makeText(getActivity(), "待实现的隐私设置", Toast.LENGTH_SHORT).show();
                 //隐私设置
 //                startActivity(new Intent(getActivity(), PrivateSetActivity.class));
                 break;
             case R.id.ll_share:
+                Toast.makeText(getActivity(), "待实现的分享", Toast.LENGTH_SHORT).show();
                 //分享
 //                startActivity(new Intent(getActivity(), ShareImgActivity.class));
                 break;
-            case R.id.ll_notice:
-                //通知
-//                startActivity(new Intent(getActivity(), NoticeActivity.class));
-                break;
             case R.id.ll_setting:
+                Toast.makeText(getActivity(), "待实现的设置", Toast.LENGTH_SHORT).show();
                 //设置
 //                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;

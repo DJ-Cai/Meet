@@ -13,6 +13,7 @@ import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FetchUserInfoListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -71,6 +72,12 @@ public class BmobManager {
         return BmobUser.getCurrentUser(IMUser.class);
     }
 
+    /**
+     * 同步控制台信息至本地缓存
+     */
+    public void fetchUserInfo(FetchUserInfoListener<BmobUser> listener) {
+        BmobUser.fetchUserInfo(listener);
+    }
 
     /**
      * 发送短信验证码
@@ -211,16 +218,16 @@ public class BmobManager {
 //        BmobQuery<PrivateSet> query = new BmobQuery<>();
 //        query.findObjects(listener);
 //    }
-//
-//    /**
-//     * 查询缘分池
-//     *
-//     * @param listener
-//     */
-//    public void queryFateSet(FindListener<FateSet> listener) {
-//        BmobQuery<FateSet> query = new BmobQuery<>();
-//        query.findObjects(listener);
-//    }
+
+    /**
+     * 查询缘分池
+     *
+     * @param listener
+     */
+    public void queryFateSet(FindListener<FateSet> listener) {
+        BmobQuery<FateSet> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
 
     /**
      * 添加好友
@@ -266,29 +273,29 @@ public class BmobManager {
 //        set.setPhone(getUser().getMobilePhoneNumber());
 //        set.save(listener);
 //    }
-//
-//    /**
-//     * 添加到缘分池中
-//     *
-//     * @param listener
-//     */
-//    public void addFateSet(SaveListener<String> listener) {
-//        FateSet set = new FateSet();
-//        set.setUserId(getUser().getObjectId());
-//        set.save(listener);
-//    }
-//
-//    /**
-//     * 删除缘分池
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void delFateSet(String id, UpdateListener listener) {
-//        FateSet set = new FateSet();
-//        set.setObjectId(id);
-//        set.delete(listener);
-//    }
+
+    /**
+     * 添加到缘分池中
+     *
+     * @param listener
+     */
+    public void addFateSet(SaveListener<String> listener) {
+        FateSet set = new FateSet();
+        set.setUserId(getUser().getObjectId());
+        set.save(listener);
+    }
+
+    /**
+     * 删除缘分池
+     *
+     * @param id
+     * @param listener
+     */
+    public void delFateSet(String id, UpdateListener listener) {
+        FateSet set = new FateSet();
+        set.setObjectId(id);
+        set.delete(listener);
+    }
 //
 //    /**
 //     * 删除私有库

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -11,6 +12,8 @@ import android.provider.MediaStore;
 
 import androidx.core.content.FileProvider;
 import androidx.loader.content.CursorLoader;
+
+import com.dongjian.framwork.utils.LogUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,7 +29,10 @@ public class FileHelper {
     private File tempFile = null;
     //用于拿到真实的URI
     private Uri imageUri;
-
+    //裁剪文件
+    private String cropPath;
+    //裁剪结果
+    public static final int CAMERA_CROP_RESULT = 1008;
 
     //相机的回调
     public static final int CAMEAR_REQUEST_CODE = 1004;
@@ -51,7 +57,9 @@ public class FileHelper {
     public File getTempFile() {
         return tempFile;
     }
-
+    public String getCropPath() {
+        return cropPath;
+    }
     /**
      * 跳转到相机
      */
@@ -103,5 +111,47 @@ public class FileHelper {
         cursor.moveToFirst();
         //重头遍历 返回真实地址
         return cursor.getString(index);
+    }
+
+    /**
+     * 裁剪
+     *
+     * @param mActivity
+     * @param file
+     */
+    public void startPhotoZoom(Activity mActivity, File file) {
+        LogUtils.i("startPhotoZoom" + file.getPath());
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(mActivity, "com.imooc.meet.fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+
+        if (uri == null) {
+            return;
+        }
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //设置裁剪
+        intent.putExtra("crop", "true");
+        //裁剪宽高比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //裁剪图片的质量
+        intent.putExtra("outputX", 320);
+        intent.putExtra("outputY", 320);
+        //发送数据
+        //intent.putExtra("return-data", true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        //单独存储裁剪文件，解决手机兼容性问题
+        cropPath = Environment.getExternalStorageDirectory().getPath() + "/" + "meet.jpg";
+        Uri mUriTempFile = Uri.parse("file://" + "/" + cropPath);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUriTempFile);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        mActivity.startActivityForResult(intent, CAMERA_CROP_RESULT);
     }
 }

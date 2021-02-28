@@ -48,15 +48,15 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_connect_status"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/color_star_bg"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:text="正在连接服务器...."
-        android:textColor="@color/white"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_connect_status"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:background="@color/color_star_bg"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:text="正在连接服务器...."-->
+<!--        android:textColor="@color/white"/>-->
 
     <com.moxun.tagcloudlib.view.TagCloudView
         android:id="@+id/mCloudView"

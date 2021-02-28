@@ -72,11 +72,13 @@ dependencies {
     api rootProject.ext.dependencies["material"]
 //    下拉刷新
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-//      photoView
-    api 'com.github.chrisbanes:PhotoView:2.3.0'
 
 //    高德地图系列
     api 'com.amap.api:3dmap:5.0.0'
     api 'com.amap.api:location:3.3.0'
     api 'com.amap.api:search:5.0.0'
+
+    api 'cn.aigestudio.datepicker:DatePicker:2.2.0'
+    //      photoView
+    api 'com.github.chrisbanes:PhotoView:2.3.0'
 }

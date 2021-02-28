@@ -102,6 +102,7 @@
     <orderEntry type="library" name="Gradle: org.litepal.android:java:3.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.litepal.android:core:3.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.aigestudio.datepicker:DatePicker:2.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.chrisbanes:PhotoView:2.3.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.multidex:multidex-instrumentation:2.0.0@aar" level="project" />
     <orderEntry type="module" module-name="Meet.framework" />

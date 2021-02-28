@@ -1,11 +1,9 @@
 package net.dongjian.meet.ui;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,19 +32,20 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-/**添加好友的逻辑
- * 1.查询申请好友的列表
- * 2.通过适配器显示出来
- * 3.如果同意则添加对方为自己的好友
- * 4.并且发送给对方自定义的消息
- * 5.对方将我添加到好友列表
- */
+
 public class NewFriendActivity extends BaseBackActivity {
+
+    /**添加好友的逻辑
+     * 1.查询申请好友的列表
+     * 2.通过适配器显示出来
+     * 3.如果同意则添加对方为自己的好友
+     * 4.并且发送给对方自定义的消息
+     * 5.对方将我添加到好友列表
+     */
 
     private ViewStub item_empty_view;
     private RecyclerView mNewFriendView;
@@ -59,14 +58,13 @@ public class NewFriendActivity extends BaseBackActivity {
     //对方用户
     IMUser imUser;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
 
         initView();
-        queryNewFriend();
+
     }
 
     private void initView() {
@@ -151,7 +149,7 @@ public class NewFriendActivity extends BaseBackActivity {
             }
         });
         mNewFriendView.setAdapter(mNewFriendAdapter);
-
+        queryNewFriend();
     }
 
     /**
@@ -174,7 +172,6 @@ public class NewFriendActivity extends BaseBackActivity {
     /**
      * 查询新朋友
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void queryNewFriend(){
         /**
          * 在子线程中获取好友申请列表，
@@ -183,7 +180,7 @@ public class NewFriendActivity extends BaseBackActivity {
          */
         disposable = Observable.create(new ObservableOnSubscribe<List<NewFriend>>() {
             @Override
-            public void subscribe(@NonNull ObservableEmitter<List<NewFriend>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<List<NewFriend>> emitter) throws Exception {
                 //通过发射器来执行下一步（子线程）
                 emitter.onNext(LitePalHelper.getInstance().queryNewFriend());
                 emitter.onComplete();

@@ -35,16 +35,17 @@
             android:name=".MainActivity"
             android:theme="@style/AppThemeFull" />
 
-        <activity android:name=".test.TestActivity" />
-        <activity android:name=".ui.FirstUploadActivity"/>
         <activity android:name=".ui.AddFriendActivity"/>
-        <activity android:name=".ui.UserInfoActivity"
-            android:theme="@style/AppThemeFull"/>
         <activity android:name=".ui.ChatActivity"/>
         <activity android:name=".ui.ContactFirendActivity"/>
-        <activity android:name=".ui.ImagePreviewActivity"
-            android:theme="@style/AppThemeFull" />
+        <activity android:name=".ui.FirstUploadActivity"/>
+        <activity android:name=".ui.ImagePreviewActivity"    android:theme="@style/AppThemeFull" />
+        <activity android:name=".ui.LocationActivity"/>
+        <activity android:name=".ui.MeInfoActivity"/>
         <activity android:name=".ui.NewFriendActivity"/>
+        <activity android:name=".ui.UserInfoActivity"   android:theme="@style/AppThemeFull"/>
+
+        <activity android:name=".test.TestActivity" />
 
 
 <!--        云服务-->

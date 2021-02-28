@@ -6,17 +6,16 @@
     android:orientation="vertical">
 
 <!--    为3D星球View提供服务的-->
-    <ImageView
-        android:id="@+id/iv_star_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_message"/>
-
     <TextView
         android:id="@+id/tv_star_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:textSize="5sp" />
+        android:textSize="4sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_star_icon"
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
 
 </LinearLayout>

@@ -22,7 +22,6 @@ public class AnimUtils {
         mAnim.setRepeatCount(ValueAnimator.INFINITE);
         //插值器
         mAnim.setInterpolator(new LinearInterpolator());
-        mAnim.start();
         return mAnim;
     }
 }

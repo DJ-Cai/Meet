@@ -53,12 +53,22 @@ public class LoadingView {
     }
 
     public void show(String text) {
+        animator.start();
         setLoadingText(text);
-        show();
+        DialogManager.getInstance().show(mLoadingView);
     }
 
     public void hide() {
         animator.pause();
         DialogManager.getInstance().hide(mLoadingView);
+    }
+
+    /**
+     * 外部是否可以点击消失
+     *
+     * @param flag
+     */
+    public void setCancelable(boolean flag) {
+        mLoadingView.setCancelable(flag);
     }
 }

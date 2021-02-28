@@ -77,6 +77,7 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
         iv_add = view.findViewById(R.id.iv_add);
 
         mCloudView = view.findViewById(R.id.mCloudView);
+
         mLoadingView = new LoadingView(getActivity());
 
         ll_random = view.findViewById(R.id.ll_random);

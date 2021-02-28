@@ -78,7 +78,7 @@ public class HeadZoomScrollView extends ScrollView {
                 if (!isScrolling) {
                     //说明没有滑动
                     if (getScrollY() == 0) {
-                        //没有滑动说明是第一次滑动 记录按下的坐标
+                        //没有滑动说明是第一次滑动 记录
                         firstPosition = ev.getY();
                     } else {
                         break;
@@ -132,7 +132,7 @@ public class HeadZoomScrollView extends ScrollView {
         ViewGroup.LayoutParams lp = mZoomView.getLayoutParams();
         lp.width = (int) (mZoomViewWidth + zoom);
         // 现在的宽/原本的宽 得到 缩放比例  再 * 原本的高 得到缩放的高
-        lp.height = (int)((mZoomViewWidth + zoom) / mZoomViewWidth) *  mZoomViewHeight ;
+        lp.height = (int) (mZoomViewHeight * ((mZoomViewWidth + zoom) / mZoomViewWidth));
         //设置间距：不然下拉过程中 头像会发生偏移
         //公式：- (lp.width - mZoomViewWidth) / 2
         ((MarginLayoutParams) lp).setMargins(-(lp.width - mZoomViewWidth) / 2, 0, 0, 0);

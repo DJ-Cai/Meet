@@ -1,3 +1,8 @@
+include ':publicservice-5.0.0'
+include ':location-5.0.0'
+include ':discussion-5.0.0'
+include ':customservice-5.0.0'
+include ':chatroom-5.0.0'
 include ':IMLib'
 include ':framework'
 include ':mylibrary'

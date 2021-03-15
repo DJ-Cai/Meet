@@ -76,6 +76,7 @@ public class GuideActivity extends BaseUIActivity implements View.OnClickListene
     }
 
     private void initView(){
+
         iv_music_switch = findViewById(R.id.iv_music_switch);
         tv_guide_skip = findViewById(R.id.tv_guide_skip);
         iv_guide_point_1 = findViewById(R.id.iv_guide_point_1);

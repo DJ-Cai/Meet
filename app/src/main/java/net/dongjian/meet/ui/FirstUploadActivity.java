@@ -50,6 +50,7 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
         mActivity.startActivityForResult(intent,requestCode);
     }
 
+    //圆形头像
     private CircleImageView iv_photo;
     private EditText et_nickname;
     private Button btn_upload;
@@ -198,7 +199,10 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
             //用户选择通过相机上传照片
             if(requestCode == FileHelper.CAMEAR_REQUEST_CODE){
                 uploadFile = FileHelper.getInstance().getTempFile();
+                //压缩
+                FileHelper.getInstance().startPhotoZoom(this, uploadFile);
             }else if(requestCode == FileHelper.ALBUM_REQUEST_CODE){
+                //从相册选取
                 //拿到选择的图片的地址，等下在转化为真实地址
                 Uri uri = data.getData();
                 if(uri != null){
@@ -206,8 +210,14 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
                     String path = FileHelper.getInstance().getRealPathFromURI(this,uri);
                     if(!TextUtils.isEmpty(path)){
                         uploadFile = new File(path);
+                        //压缩上传的头像图片
+                        FileHelper.getInstance().startPhotoZoom(this, uploadFile);
                     }
                 }
+            } else if (requestCode == FileHelper.CAMERA_CROP_RESULT) {
+                LogUtils.i("CAMERA_CROP_RESULT");
+                uploadFile = new File(FileHelper.getInstance().getCropPath());
+                LogUtils.i("uploadPhotoFile:" + uploadFile.getPath());
             }
 
             //设置头像

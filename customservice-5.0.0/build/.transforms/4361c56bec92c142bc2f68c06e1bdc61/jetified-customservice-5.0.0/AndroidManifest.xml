@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.rong.imlib.cs"
+    android:versionCode="20210119"
+    android:versionName="5.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="29" />
+
+    <application>
+        <provider
+            android:name="io.rong.imlib.cs.base.CustomServiceContentProvider"
+            android:authorities="${applicationId}.rong.CustomServiceContentProvider" />
+    </application>
+
+</manifest>

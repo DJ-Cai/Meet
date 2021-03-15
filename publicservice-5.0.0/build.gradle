@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('publicservice-5.0.0.aar'))

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: artifacts:chatroom-5.0.0:unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/chatroom-5.0.0/build/.transforms/d2d0a634399464868eeaa3a9b8206d77/jetified-chatroom-5.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/chatroom-5.0.0/build/.transforms/d2d0a634399464868eeaa3a9b8206d77/jetified-chatroom-5.0.0/res" />
+      <root url="file://$PROJECT_DIR$/chatroom-5.0.0/build/.transforms/d2d0a634399464868eeaa3a9b8206d77/jetified-chatroom-5.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

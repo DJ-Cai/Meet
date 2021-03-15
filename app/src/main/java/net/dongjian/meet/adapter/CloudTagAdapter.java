@@ -49,7 +49,7 @@ public class CloudTagAdapter extends TagsAdapter {
      */
     @Override
     public View getView(Context context, int position, ViewGroup parent) {
-        //初始化View和控件
+        //初始化View和控件：一开始是直接获取图片和内容，但是总加载不出来
 //        View view = inflater.inflate(R.layout.layout_star_view_item, null);
 //        ImageView iv_star_view = view.findViewById(R.id.iv_star_icon);
 //        TextView tv_star_name = view.findViewById(R.id.tv_star_name);

@@ -196,7 +196,7 @@ public class NewFriendActivity extends BaseBackActivity {
                             mList.addAll(newFriends);
                             mNewFriendAdapter.notifyDataSetChanged();
                         } else {
-                            //显示好友列表，隐藏那个空view
+                            //显示空view 隐藏那个好友列表RecyclerView
                             showViewStub();
                             mNewFriendView.setVisibility(View.GONE);
                         }

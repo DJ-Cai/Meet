@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: artifacts:location-5.0.0:unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/location-5.0.0/build/.transforms/3b211b8d16f071425c29fd6a2e419585/jetified-location-5.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/location-5.0.0/build/.transforms/3b211b8d16f071425c29fd6a2e419585/jetified-location-5.0.0/res" />
+      <root url="file://$PROJECT_DIR$/location-5.0.0/build/.transforms/3b211b8d16f071425c29fd6a2e419585/jetified-location-5.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

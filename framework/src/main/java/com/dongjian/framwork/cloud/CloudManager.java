@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
 
-//import io.rong.calllib.IRongCallListener;
-//import io.rong.calllib.IRongReceivedCallListener;
-//import io.rong.calllib.RongCallClient;
-//import io.rong.calllib.RongCallCommon;
+
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.location.message.LocationMessage;

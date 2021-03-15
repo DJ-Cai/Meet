@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 
 import net.dongjian.framework.R;
 
@@ -32,25 +31,25 @@ public class TouchPictureV extends View {
     private Bitmap mNullBitmap;
     //空白块画笔
     private Paint mPaintNull;
-
-    //移动方块
-    private Bitmap mMoveBitmap;
-    //移动画笔
-    private Paint mPaintMove;
-
-    //View的宽高---bitmap背景的时候，想和这里的数据一样
-    private int mWidth;
-    private int mHeight;
-
     //空白方块大小
     private int CARD_SIZE = 200;
     //空白方块坐标
     private int LINE_W, LINE_H = 0;
 
+
+    //移动方块
+    private Bitmap mMoveBitmap;
+    //移动画笔
+    private Paint mPaintMove;
     //移动方块横坐标 (纵坐标和空白块保持一致)
     private int moveX = 200;
     //移动方块可允许的误差值
     private int errorValue = 20;
+
+
+    //View的宽高---bitmap背景的时候，想和这里的数据一样
+    private int mWidth;
+    private int mHeight;
 
     private OnViewResultListener viewResultListener;
 
@@ -63,12 +62,12 @@ public class TouchPictureV extends View {
         init();
     }
 
-    public TouchPictureV(Context context, @Nullable AttributeSet attrs) {
+    public TouchPictureV(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public TouchPictureV(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TouchPictureV(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -80,7 +79,7 @@ public class TouchPictureV extends View {
     }
 
     /**
-     * 获取View的宽高
+     * 获取View的宽高：在布局文件中给出指定大小（精确值）
      *
      * @param w
      * @param h
@@ -173,6 +172,7 @@ public class TouchPictureV extends View {
                     }
                 }
                 invalidate();
+                moveX=200;
             break;
         }
         return true;

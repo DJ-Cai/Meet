@@ -21,7 +21,7 @@ import java.io.File;
 
 /**
  * FileName: ImagePreviewActivity
- * Profile: 图片预览
+ * Profile: 图片预览--就是点击图片以后放大显示原图的view
  */
 public class ImagePreviewActivity extends BaseUIActivity implements View.OnClickListener {
 

@@ -2,7 +2,6 @@ package net.dongjian.meet.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,15 @@ import android.widget.Toast;
 import com.dongjian.framwork.base.BaseFragment;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.IMUser;
-import com.dongjian.framwork.cloud.CloudManager;
 import com.dongjian.framwork.helper.PairFriendHelper;
-import com.dongjian.framwork.manager.DialogManager;
 import com.dongjian.framwork.utils.CommonUtils;
-import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.view.DialogView;
 import com.dongjian.framwork.view.LoadingView;
 import com.moxun.tagcloudlib.view.TagCloudView;
 
 import net.dongjian.meet.R;
-import net.dongjian.meet.model.StarModel;
 import net.dongjian.meet.adapter.CloudTagAdapter;
+import net.dongjian.meet.model.StarModel;
 import net.dongjian.meet.ui.AddFriendActivity;
 import net.dongjian.meet.ui.UserInfoActivity;
 
@@ -59,7 +55,7 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
     private List<StarModel> mStarList = new ArrayList<>();
 
     //连接状态
-    private TextView tv_connect_status;
+    //private TextView tv_connect_status;
 
     //全部用户
     private List<IMUser> mAllUserList = new ArrayList<>();
@@ -140,14 +136,12 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
      * 加载星球用户
      */
     private void loadStarUser() {
-        LogUtils.i("loadStarUser");
         /**
          * 我们从用户库中取抓取一定的好友进行匹配
          */
         BmobManager.getmInstance().queryAllUser(new FindListener<IMUser>() {
             @Override
             public void done(List<IMUser> list, BmobException e) {
-                LogUtils.i("done");
                 if (e == null) {
                     if (CommonUtils.isNotEmpty(list)) {
                         //把旧数据进行清理，不然可能会重复
@@ -171,12 +165,6 @@ public class StarFragment extends BaseFragment implements View.OnClickListener {
                             saveStarUser(imUser.getObjectId(),
                                     imUser.getNickName(),
                                     imUser.getPhoto());
-                        }
-                        LogUtils.i("done...");
-                        //当请求数据已经加载出来的时候判断是否连接服务器
-                        if(CloudManager.getInstance().isConnect()){
-                            //已经连接，并且星球加载，则隐藏
-                            tv_connect_status.setVisibility(View.GONE);
                         }
                         mCloudTagAdapter.notifyDataSetChanged();
                     }

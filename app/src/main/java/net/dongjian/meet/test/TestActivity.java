@@ -3,22 +3,13 @@ package net.dongjian.meet.test;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.dongjian.framwork.base.BaseActivity;
-import com.dongjian.framwork.bmob.BmobManager;
-import com.dongjian.framwork.bmob.MyData;
-import com.dongjian.framwork.java.SimulationData;
 import com.dongjian.framwork.utils.LogUtils;
 
 import net.dongjian.meet.R;
-
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 
 public class TestActivity extends BaseActivity implements View.OnClickListener {

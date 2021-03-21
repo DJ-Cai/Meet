@@ -18,8 +18,11 @@ import com.dongjian.framwork.db.LitePalHelper;
 import com.dongjian.framwork.db.NewFriend;
 import com.dongjian.framwork.event.EventManager;
 import com.dongjian.framwork.utils.CommonUtils;
+import com.dongjian.framwork.utils.LogUtils;
 
 import net.dongjian.meet.R;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,8 @@ public class NewFriendActivity extends BaseBackActivity {
     //对方用户
     IMUser imUser;
 
+    private List<IMUser> mUserList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +73,7 @@ public class NewFriendActivity extends BaseBackActivity {
     }
 
     private void initView() {
-        mNewFriendView = (RecyclerView) findViewById(R.id.mNewFriendView);
+        mNewFriendView = (RecyclerView) findViewById(R.id.mAllFriendView);
 
         mNewFriendView.setLayoutManager(new LinearLayoutManager(this));
         //添加分割线
@@ -77,13 +82,14 @@ public class NewFriendActivity extends BaseBackActivity {
 
         mNewFriendAdapter = new CommonAdapter<>(mList, new CommonAdapter.OnBindDataListener<NewFriend>() {
             @Override
-            public void onBindViewHolder(NewFriend model, CommonViewHolder viewHolder, int type, int position) {
+            public void onBindViewHolder(final NewFriend model, final CommonViewHolder viewHolder, int type,final int position) {
                 //根据ID查询用户信息
                 BmobManager.getmInstance().queryObjectIdUser(model.getId(), new FindListener<IMUser>() {
                     @Override
                     public void done(List<IMUser> list, BmobException e) {
                         if(e == null){
                             imUser = list.get(0);
+                            mUserList.add(imUser);
                             viewHolder.setImageUrl(NewFriendActivity.this, R.id.iv_photo,
                                     imUser.getPhoto());
                             viewHolder.setImageResource(R.id.iv_sex, imUser.isSex() ?
@@ -116,19 +122,27 @@ public class NewFriendActivity extends BaseBackActivity {
                          * 1、点击同意后刷新当前的Item
                          * 2、将好友添加到自己的好友列表
                          * 3、通知对方--我已经同意了
-                         * 4、对方建构添加到好友列表
+                         * 4、对方将我添加到好友列表
                          * 5、刷新好友列表
                          */
                         //1、点击同意后刷新当前的Item
                         updateItem(position,0);
+                        //将好友添加到自己的好友列表
+                        //构建一个ImUSER
+                        IMUser friendUser = new IMUser();
+                        friendUser.setObjectId(model.getId());
                         //2、将好友添加到自己的好友列表
-                        BmobManager.getmInstance().addFriend(imUser, new SaveListener<String>() {
+                        BmobManager.getmInstance().addFriend(friendUser, new SaveListener<String>() {
                             @Override
                             //3、通知对方--我已经同意了
                             public void done(String s, BmobException e) {
-                                CloudManager.getInstance().sendTextMessage("",CloudManager.TYPE_ARGEED_FRIEND,imUser.getObjectId());
-                                //刷新好友列表
-                                EventManager.post(EventManager.FLAG_UPDATE_FRIEND_LIST);
+                                if (e == null) {
+                                    //保存成功
+                                    //通知对方：msg，消息类型，对方id
+                                    CloudManager.getInstance().sendTextMessage("有人同意了你的好友请求哟",CloudManager.TYPE_ARGEED_FRIEND, imUser.getObjectId());
+                                    //刷新好友列表
+                                    EventManager.post(EventManager.FLAG_UPDATE_FRIEND_LIST);
+                                }
                             }
                         });
                     }
@@ -137,6 +151,7 @@ public class NewFriendActivity extends BaseBackActivity {
                 //拒绝
                 viewHolder.getView(R.id.ll_no).setOnClickListener(new View.OnClickListener() {
                     @Override
+                    //更新之后就没事了
                     public void onClick(View v) {
                         updateItem(position,1);
                     }
@@ -170,33 +185,41 @@ public class NewFriendActivity extends BaseBackActivity {
     }
 
     /**
-     * 查询新朋友
+     * 查询  别的用户发送过来的 请求添加好友  消息 (需要切换子进程去查)
      */
-    private void queryNewFriend(){
+    private void queryNewFriend() {
+        LogUtils.e("NewFriendActivity.queryNewFriend");
         /**
-         * 在子线程中获取好友申请列表，
-         * 在主线程中更新UI
-         * 用RxJava
+         * 在子线程中获取好友申请列表然后在主线程中更新我们的UI
+         * RxJava 线程调度
          */
         disposable = Observable.create(new ObservableOnSubscribe<List<NewFriend>>() {
             @Override
             public void subscribe(ObservableEmitter<List<NewFriend>> emitter) throws Exception {
-                //通过发射器来执行下一步（子线程）
-                emitter.onNext(LitePalHelper.getInstance().queryNewFriend());
+                ////通过发射器来执行下一步（子线程）
+
+//                emitter.onNext(LitePalHelper.getInstance().queryNewFriend());
+                LogUtils.e("NewFriendActivity 这里是有问题的：LitePal不能完成这个任务,好像是融云的问题");
+                List<NewFriend> list = LitePal.findAll(NewFriend.class);
+                LogUtils.e("NewFriendActivity.queryNewFriend.subscribe拿到数据");
+                emitter.onNext(list);
                 emitter.onComplete();
+
             }
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<NewFriend>>() {
                     @Override
-                    public void accept(List<NewFriend> newFriends) {
+                    public void accept(List<NewFriend> newFriends) throws Exception {
                         //更新UI
                         if (CommonUtils.isNotEmpty(newFriends)) {
-                            //添加   刷新
+                            LogUtils.e("NewFriendActivity.queryNewFriend . notEmpty");
+                            //有消息，则需要加进list数据源里，然后适配器才可以填入，这里刷一下就好
                             mList.addAll(newFriends);
                             mNewFriendAdapter.notifyDataSetChanged();
                         } else {
-                            //显示空view 隐藏那个好友列表RecyclerView
+                            LogUtils.e("NewFriendActivity.queryNewFriend . Empty");
+                            //显示空view 隐藏那个空的好友列表RecyclerView
                             showViewStub();
                             mNewFriendView.setVisibility(View.GONE);
                         }
@@ -209,8 +232,10 @@ public class NewFriendActivity extends BaseBackActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(disposable.isDisposed()){
-            disposable.dispose();
+        if (disposable != null) {
+            if (!disposable.isDisposed()) {
+                disposable.dispose();
+            }
         }
     }
 

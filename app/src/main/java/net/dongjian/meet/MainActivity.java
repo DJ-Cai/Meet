@@ -18,7 +18,6 @@ import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.entity.Constants;
 import com.dongjian.framwork.gson.TokenBean;
-import com.dongjian.framwork.java.SimulationData;
 import com.dongjian.framwork.manager.DialogManager;
 import com.dongjian.framwork.manager.HttpManager;
 import com.dongjian.framwork.utils.LogUtils;
@@ -46,11 +45,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Fragment的优化
- * 1.初始化Fragment
- * 2.显示Fragment
- * 3.隐藏所有的Fragment
- * 4.恢复Fragment
- * 优化的手段
+
  */
 public class MainActivity extends BaseUIActivity implements View.OnClickListener {
 
@@ -279,7 +274,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     }
 
     /**
-     * 显示Fragment
+     * 显示Fragment----要隐藏所有fragment
      * @param fragment
      */
     private void showFragment(Fragment fragment) {
@@ -407,6 +402,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
             case R.id.ll_star:
                 checkMainTab(0);
                 break;
+
             case R.id.ll_square:
                 checkMainTab(1);
                 break;

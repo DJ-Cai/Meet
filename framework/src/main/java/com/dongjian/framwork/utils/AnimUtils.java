@@ -18,7 +18,8 @@ public class AnimUtils {
     public static ObjectAnimator rotation(View view){
         ObjectAnimator  mAnim = ObjectAnimator.ofFloat(view,"rotation",0f,360f);
         mAnim.setDuration(2 * 1000);
-        mAnim.setRepeatMode(ValueAnimator.RESTART);
+        //无限重复
+       mAnim.setRepeatMode(ValueAnimator.RESTART);
         mAnim.setRepeatCount(ValueAnimator.INFINITE);
         //插值器
         mAnim.setInterpolator(new LinearInterpolator());

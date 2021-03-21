@@ -163,28 +163,6 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
         }
     }
 
-    private void uploadPotoAndNickname() {
-        //获取昵称(头像文件是全局变量，可以直接使用)
-        String nickname = et_nickname.getText().toString().trim();
-        //这里就是上传位置，为了优化用户体验，所以加个LoadingView
-        mLoadingView.show();
-        BmobManager.getmInstance().uploadFirstPhotoAndNickname(uploadFile, nickname, new BmobManager.OnUploadPhotoListener() {
-            @Override
-            public void OnUpdateDone() {
-                mLoadingView.hide();
-                //返回成功，让上面的MainActivity操作去
-                setResult(RESULT_OK);
-                finish();
-            }
-
-            @Override
-            public void OnUpdateFail(BmobException e) {
-                mLoadingView.hide();
-                Toast.makeText(FirstUploadActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     /**
      * 对于各个点击事件的回调响应
@@ -215,6 +193,7 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
                     }
                 }
             } else if (requestCode == FileHelper.CAMERA_CROP_RESULT) {
+                //压缩后，让uploadFile指向压缩文件
                 LogUtils.i("CAMERA_CROP_RESULT");
                 uploadFile = new File(FileHelper.getInstance().getCropPath());
                 LogUtils.i("uploadPhotoFile:" + uploadFile.getPath());
@@ -232,5 +211,30 @@ public class FirstUploadActivity extends BaseBackActivity implements View.OnClic
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void uploadPotoAndNickname() {
+        //获取昵称(头像文件是全局变量，可以直接使用)
+        String nickname = et_nickname.getText().toString().trim();
+        //这里就是上传，为了优化用户体验，所以加个LoadingView
+        mLoadingView.show();
+
+        BmobManager.getmInstance().uploadFirstPhotoAndNickname(uploadFile, nickname, new BmobManager.OnUploadPhotoListener() {
+            @Override
+            public void OnUpdateDone() {
+                mLoadingView.hide();
+                //返回成功，让上面的MainActivity操作去
+                setResult(RESULT_OK);
+                finish();
+            }
+
+            @Override
+            public void OnUpdateFail(BmobException e) {
+                mLoadingView.hide();
+                Toast.makeText(FirstUploadActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

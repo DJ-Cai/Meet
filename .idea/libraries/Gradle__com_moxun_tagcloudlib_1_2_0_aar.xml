@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.moxun:tagcloudlib:1.2.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4970c1514834ab89978c714df7d32488/jetified-tagcloudlib-1.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d84dabde052ae924ebc669be335ffc3/jetified-tagcloudlib-1.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4970c1514834ab89978c714df7d32488/jetified-tagcloudlib-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4970c1514834ab89978c714df7d32488/jetified-tagcloudlib-1.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4970c1514834ab89978c714df7d32488/jetified-tagcloudlib-1.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d84dabde052ae924ebc669be335ffc3/jetified-tagcloudlib-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d84dabde052ae924ebc669be335ffc3/jetified-tagcloudlib-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d84dabde052ae924ebc669be335ffc3/jetified-tagcloudlib-1.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.moxun/tagcloudlib/1.2.0/85374c98fcecf0b2a07fb7ad9b17edb2e09dc668/tagcloudlib-1.2.0-javadoc.jar!/" />

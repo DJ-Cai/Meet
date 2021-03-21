@@ -1,11 +1,8 @@
 package net.dongjian.meet.ui;
 
-import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,10 +18,8 @@ import com.dongjian.framwork.base.BaseBackActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.bmob.IMUser;
 import com.dongjian.framwork.utils.CommonUtils;
-import com.dongjian.framwork.utils.LogUtils;
 
 import net.dongjian.meet.R;
-import net.dongjian.meet.adapter.AddFriendAdapter;
 import net.dongjian.meet.model.AddFriendModel;
 
 import java.util.ArrayList;
@@ -158,7 +153,7 @@ public class AddFriendActivity extends BaseBackActivity implements View.OnClickL
             Toast.makeText(this, getString(R.string.text_login_phone_null), Toast.LENGTH_SHORT).show();
             return;
         }
-        //2、进行查询
+        //2、进行查询，接口处进行结果处理
         BmobManager.getmInstance().queryPhoneUser(phone, new FindListener<IMUser>() {
             @Override
             public void done(List<IMUser> list, BmobException e) {

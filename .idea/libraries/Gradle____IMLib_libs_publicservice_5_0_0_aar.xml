@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./IMLib/libs/publicservice-5.0.0.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f0d4f8cdf774816ee5ed88b76dc975f5/jetified-publicservice-5.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f0d4f8cdf774816ee5ed88b76dc975f5/jetified-publicservice-5.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f0d4f8cdf774816ee5ed88b76dc975f5/jetified-publicservice-5.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

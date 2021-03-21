@@ -41,13 +41,14 @@ public class LitePalHelper {
     }
 
     /**
-     * 保存新朋友
+     * 保存别的用户发送过来的 请求添加好友  消息
      *
      * @param msg
      * @param id
      */
     public void saveNewFriend(String msg, String id) {
-        LogUtils.e("保存新朋友saveNewFriend");
+        LogUtils.e("保存新朋友   LitePalHelper.saveNewFriend");
+        //填充好newFriend表之后就可以进行保存操作了
         NewFriend newFriend = new NewFriend();
         newFriend.setMsg(msg);
         newFriend.setId(id);
@@ -73,7 +74,7 @@ public class LitePalHelper {
 //    }
 
     /**
-     * 查询的基类
+     * 查询的基类：将所有相关消息查询出来并返回
      *
      * @param cls
      * @return
@@ -83,7 +84,7 @@ public class LitePalHelper {
     }
 
     /**
-     * 查询新朋友
+     * 查询  别的用户发送过来的 请求添加好友  消息
      *
      * @return
      */
@@ -101,7 +102,7 @@ public class LitePalHelper {
 //    }
 
     /**
-     * 更新新朋友的数据库状态
+     * 更新新朋友的数据库状态：同意  或 拒绝
      *
      * @param userId
      * @param agree

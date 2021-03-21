@@ -3,7 +3,6 @@ package com.dongjian.framwork.cloud;
 import android.content.Context;
 import android.net.Uri;
 
-
 import com.dongjian.framwork.event.EventManager;
 import com.dongjian.framwork.event.MessageEvent;
 import com.dongjian.framwork.utils.LogUtils;
@@ -11,10 +10,7 @@ import com.dongjian.framwork.utils.LogUtils;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
-
 
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -22,8 +18,8 @@ import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.ImageMessage;
-//import io.rong.message.LocationMessage;
 import io.rong.message.TextMessage;
+
 
 /**
  * FileName: CloudManager
@@ -85,8 +81,7 @@ public class CloudManager {
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.e("连接成功" + s);
-                CloudManager.getInstance().sendTextMessage("很高兴发送给你了","adfc4f4019");
+                LogUtils.e("CloudManager 连接成功" + s);
             }
 
             @Override
@@ -101,28 +96,29 @@ public class CloudManager {
             }
 
 
+
         });
     }
-//
-//    /**
-//     * 监听连接状态
-//     *
-//     * @param listener
-//     */
-//    public void setConnectionStatusListener(RongIMClient.ConnectionStatusListener listener) {
-//        RongIMClient.setConnectionStatusListener(listener);
-//    }
 
-//    /**
-//     * 发送服务器连接状态
-//     *
-//     * @param isConnect
-//     */
-//    private void sendConnectStatus(boolean isConnect) {
-//        MessageEvent messageEvent = new MessageEvent(EventManager.EVENT_SERVER_CONNECT_STATUS);
-//        messageEvent.setConnectStatus(isConnect);
-//        EventManager.post(messageEvent);
-//    }
+    /**
+     * 监听连接状态
+     *
+     * @param listener
+     */
+    public void setConnectionStatusListener(RongIMClient.ConnectionStatusListener listener) {
+        RongIMClient.setConnectionStatusListener(listener);
+    }
+
+    /**
+     * 发送服务器连接状态
+     *
+     * @param isConnect
+     */
+    private void sendConnectStatus(boolean isConnect) {
+        MessageEvent messageEvent = new MessageEvent(EventManager.EVENT_SERVER_CONNECT_STATUS);
+        messageEvent.setConnectStatus(isConnect);
+        EventManager.post(messageEvent);
+    }
 
     /**
      * 是否连接
@@ -141,13 +137,13 @@ public class CloudManager {
         RongIMClient.getInstance().disconnect();
     }
 
-//    /**
-//     * 退出登录
-//     */
-//    public void logout() {
-//        RongIMClient.getInstance().logout();
-//    }
-//
+    /**
+     * 退出登录
+     */
+    public void logout() {
+        RongIMClient.getInstance().logout();
+    }
+
     /**
      * 接收消息的监听器
      *
@@ -163,7 +159,7 @@ public class CloudManager {
      * @param targetId
      */
     private void sendTextMessage(String msg, String targetId) {
-        LogUtils.e("发送文本消息 sendTextMessage");
+        LogUtils.e("发送文本消息 CloudMessage.sendTextMessage");
         TextMessage textMessage = TextMessage.obtain(msg);
         RongIMClient.getInstance().sendMessage(
                 Conversation.ConversationType.PRIVATE,
@@ -188,6 +184,7 @@ public class CloudManager {
             jsonObject.put("msg", msg);
             //如果没有这个Type 就是一条普通消息
             jsonObject.put("type", type);
+            //发送的目标id
             sendTextMessage(jsonObject.toString(), targetId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,7 +225,7 @@ public class CloudManager {
                 null, null, iSendMessageCallback);
     }
 
-    /**
+    /**entity
      * 发送消息的结果回调
      */
     private IRongCallback.ISendMessageCallback iSendMessageCallback
@@ -242,7 +239,7 @@ public class CloudManager {
         @Override
         public void onSuccess(Message message) {
             // 消息发送成功的回调
-            LogUtils.e("消息发送成功 sendMessage onSuccess ");
+            LogUtils.e("消息发送成功 CloudMessage.sendMessage onSuccess ");
         }
 
         @Override

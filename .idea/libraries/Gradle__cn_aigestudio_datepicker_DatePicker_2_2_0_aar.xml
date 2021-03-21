@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: cn.aigestudio.datepicker:DatePicker:2.2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d285201e4050757fe2b2b714384d7a5b/jetified-DatePicker-2.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d285201e4050757fe2b2b714384d7a5b/jetified-DatePicker-2.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d285201e4050757fe2b2b714384d7a5b/jetified-DatePicker-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/675c791215f831007baca9ce3957749b/jetified-DatePicker-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/675c791215f831007baca9ce3957749b/jetified-DatePicker-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/675c791215f831007baca9ce3957749b/jetified-DatePicker-2.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.aigestudio.datepicker/DatePicker/2.2.0/f0bd03160660adf2ad6390cea161fadb77c18255/DatePicker-2.2.0-javadoc.jar!/" />

@@ -21,6 +21,9 @@ import java.util.Date;
 
 /**
  * 关于文件的帮助类
+ * 1、跳转到相机
+ * 2、跳转到相机
+ * 3、裁剪头像大小
  */
 public class FileHelper {
     //时间格式---用它来命名图片文件
@@ -60,12 +63,15 @@ public class FileHelper {
     public String getCropPath() {
         return cropPath;
     }
+
     /**
-     * 跳转到相机
+     * 1、跳转到相机
+     * 用Intent
      */
     public void toCamera(Activity mActivity){
-        //安卓自带的跳转
+        //安卓自带的跳转--图像捕捉
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //用日期格式来命名文件
         String fileName = simpleDateFormat.format(new Date());
         //用中转文件在外部存储中存储
         tempFile = new File(Environment.getExternalStorageDirectory(),fileName + ".jpg");
@@ -88,6 +94,7 @@ public class FileHelper {
      * 跳转到相册
      */
     public void toAlbum(Activity mActivity){
+        //自带跳转-选择
         Intent intent = new Intent(Intent.ACTION_PICK);
         //显示所有的图片
         intent.setType("image/*");

@@ -236,9 +236,13 @@ public class BmobManager {
      * @param listener
      */
     public void addFriend(IMUser imUser, SaveListener<String> listener) {
+        //是一张好友关系表
         Friend friend = new Friend();
+        //我自己
         friend.setUser(getUser());
+        //好友
         friend.setFriendUser(imUser);
+        //保存
         friend.save(listener);
     }
 
@@ -249,12 +253,14 @@ public class BmobManager {
      * @param listener
      */
     public void addFriend(String id, final SaveListener<String> listener) {
+        //先通过id去查询到这个user
         queryObjectIdUser(id, new FindListener<IMUser>() {
             @Override
             public void done(List<IMUser> list, BmobException e) {
                 if (e == null) {
                     if (CommonUtils.isNotEmpty(list)) {
                         IMUser imUser = list.get(0);
+                        //在去通过这个user对象来添加好友
                         addFriend(imUser, listener);
                     }
                 }

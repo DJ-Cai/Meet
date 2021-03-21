@@ -17,9 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 消息通道保活 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <!-- 定位，如果您需要定位相关的功能，可以打开以下注释 -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application>
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"

@@ -77,23 +77,17 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), MeInfoActivity.class));
                 break;
             case R.id.ll_new_friend:
-                //新朋友
+                //新朋友----我的里面的新朋友
                 startActivity(new Intent(getActivity(), NewFriendActivity.class));
                 break;
             case R.id.ll_private_set:
                 Toast.makeText(getActivity(), "待实现的隐私设置", Toast.LENGTH_SHORT).show();
-                //隐私设置
-//                startActivity(new Intent(getActivity(), PrivateSetActivity.class));
                 break;
             case R.id.ll_share:
                 Toast.makeText(getActivity(), "待实现的分享", Toast.LENGTH_SHORT).show();
-                //分享
-//                startActivity(new Intent(getActivity(), ShareImgActivity.class));
                 break;
             case R.id.ll_setting:
                 Toast.makeText(getActivity(), "待实现的设置", Toast.LENGTH_SHORT).show();
-                //设置
-//                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
         }
     }

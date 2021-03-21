@@ -116,11 +116,12 @@ public class ChatRecordFragment extends BaseFragment implements SwipeRefreshLayo
     private void queryChatRecord() {
         //都需要刷新
         mChatRecordRefreshLayout.setRefreshing(true);
+        //在融云那里获取消息记录，
         CloudManager.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
             //成功
             @Override
             public void onSuccess(List<Conversation> conversations) {
-                LogUtils.i("onSuccess");
+                LogUtils.e("ChatRecordFragmment.queryChatRecord.onSuccess");
                 //将刷新false
                 mChatRecordRefreshLayout.setRefreshing(false);
                 if (CommonUtils.isNotEmpty(conversations)) {
@@ -129,29 +130,33 @@ public class ChatRecordFragment extends BaseFragment implements SwipeRefreshLayo
                         mList.clear();
                     }
                     for (int i = 0; i < conversations.size(); i++) {
-                        //具体对话对象--》 目标id
+                        //从消息记录里拿到具体对话对象--》 目标id
                         final Conversation c = conversations.get(i);
                         String id = c.getTargetId();
-                        //查询对象的信息
+                        //在Bmob里查询对象的信息
                         BmobManager.getmInstance().queryObjectIdUser(id, new FindListener<IMUser>() {
                             @Override
                             public void done(List<IMUser> list, BmobException e) {
                                 if (e == null) {
                                     if (CommonUtils.isNotEmpty(list)) {
+                                        //填充CharRecoreModel---会话对象
                                         IMUser imUser = list.get(0);
                                         ChatRecordModel chatRecordModel = new ChatRecordModel();
                                         chatRecordModel.setUserId(imUser.getObjectId());
                                         chatRecordModel.setUrl(imUser.getPhoto());
                                         chatRecordModel.setNickName(imUser.getNickName());
+                                        //获取会话的时间
                                         chatRecordModel.setTime(new SimpleDateFormat("HH:mm:ss")
                                                 .format(c.getReceivedTime()));
+                                        //获取未读数量
                                         chatRecordModel.setUnReadSize(c.getUnreadMessageCount());
                                         //获取最后一条消息（因为可能是图片、位置什么的，所以不能简单的直接获取）
                                         String objectName = c.getObjectName();
                                         if (objectName.equals(CloudManager.MSG_TEXT_NAME)) {
+                                            //普通消息
                                             TextMessage textMessage = (TextMessage) c.getLatestMessage();
                                             String msg = textMessage.getContent();
-
+                                            //需要用gson转化一下
                                             TextBean bean = new Gson().fromJson(msg, TextBean.class);
                                             if (bean.getType().equals(CloudManager.TYPE_TEXT)) {
                                                 chatRecordModel.setEndMsg(bean.getMsg());

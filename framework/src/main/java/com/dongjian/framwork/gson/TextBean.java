@@ -9,8 +9,8 @@ public class TextBean {
 
 
     /**
-     * msg : 你好，我是hello
-     * type : TYPE_ADD_FRIEND
+     * msg : 你好，我是hello   内容
+     * type : TYPE_ADD_FRIEND 类型
      */
 
     private String msg;

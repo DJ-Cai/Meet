@@ -29,18 +29,12 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int TYPE_TITLE = 0;
     public static final int TYPE_CONTENT = 1;
 
+    //1、context
     private Context mContext;
-    //这个model就是RecyclerView可以多type的关键
+    //2、model  这个model就是RecyclerView可以多type的关键
     private List<AddFriendModel> mList;
     private LayoutInflater inflater;
 
-
-    //设置点击事件
-    private OnClickListener onClickListener;
-
-    public void setOnClickListener(OnClickListener onClickListener){
-        this.onClickListener = onClickListener;
-    }
     /**
      * 构造函数
      * @param mContext
@@ -50,6 +44,14 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.mContext = mContext;
         this.mList = mList;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+
+    //设置点击事件
+    private OnClickListener onClickListener;
+
+    public void setOnClickListener(OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
     }
 
     /**
@@ -90,11 +92,11 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ContentViewHolder)holder).tv_desc.setText(model.getDesc());
 
             //这里就是用通讯录查找的了，格式和直接查找的不太一样
-            if(model.isContact()){
-                ((ContentViewHolder)holder).ll_contact_info.setVisibility(View.VISIBLE);
-                ((ContentViewHolder)holder).tv_contact_name.setText(model.getContactName());
-                ((ContentViewHolder)holder).tv_contact_phone.setText(model.getContactPhone());
-            }
+//            if(model.isContact()){
+//                ((ContentViewHolder)holder).ll_contact_info.setVisibility(View.VISIBLE);
+//                ((ContentViewHolder)holder).tv_contact_name.setText(model.getContactName());
+//                ((ContentViewHolder)holder).tv_contact_phone.setText(model.getContactPhone());
+//            }
         }
 
         //设置好view的点击事件
@@ -129,10 +131,9 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //分别初始化两个不同的ViewHodler 及对应的布局控件
     class TitleViewHolder extends RecyclerView.ViewHolder{
 
-
         private TextView tv_title;
         public TitleViewHolder(View itemView){
-            super(itemView );
+            super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
         }
     }
@@ -151,7 +152,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private TextView tv_contact_phone;
 
         public ContentViewHolder(View itemView){
-            super(itemView );
+            super(itemView);
             iv_photo = itemView.findViewById(R.id.iv_photo);
             iv_sex = itemView.findViewById(R.id.iv_sex);
             tv_nickname = itemView.findViewById(R.id.tv_nickname);

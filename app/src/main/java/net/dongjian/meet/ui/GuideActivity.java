@@ -146,6 +146,7 @@ public class GuideActivity extends BaseUIActivity implements View.OnClickListene
 
         //4、旋转属性动画
         mAnim = AnimUtils.rotation(iv_music_switch);
+        mAnim.start();
 
     }
 
@@ -217,6 +218,7 @@ public class GuideActivity extends BaseUIActivity implements View.OnClickListene
         mGuideMusic.setLooping(true);
         AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.test);
         mGuideMusic.startPlay(file);
+
     }
 
     @Override

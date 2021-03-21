@@ -19,19 +19,7 @@ android {
     }
 }
 
-//dependencies {
-//    api fileTree(dir: 'libs', include: ['*.jar','*.aar'])
-//    api 'com.google.code.gson:gson:2.8.1'
-//}
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar','*.aar'])
-    api 'androidx.core:core:1.0.0'
     api 'com.google.code.gson:gson:2.8.1'
-}
-
-repositories {
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-    }
 }

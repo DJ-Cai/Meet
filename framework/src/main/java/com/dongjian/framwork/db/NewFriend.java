@@ -10,7 +10,7 @@ public class NewFriend extends LitePalSupport {
     //留言
     private String msg;
     //对方的id
-    private String id;
+    private String userId;
     //根据时间排序
     private long saveTime;
     //状态：待确认、接收、拒绝(-1、0、1)
@@ -25,11 +25,11 @@ public class NewFriend extends LitePalSupport {
     }
 
     public String getId() {
-        return id;
+        return userId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public long getSaveTime() {

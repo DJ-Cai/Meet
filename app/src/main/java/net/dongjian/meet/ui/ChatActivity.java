@@ -3,12 +3,10 @@ package net.dongjian.meet.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +31,6 @@ import com.dongjian.framwork.utils.CommonUtils;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 import com.google.gson.Gson;
-
 
 import net.dongjian.meet.R;
 import net.dongjian.meet.model.ChatModel;
@@ -63,7 +60,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
      *
      * 发送文本逻辑
      * 1.跳转到ChatActivity
-     * 2.实现我们的聊天列表 适配器
+     * 2.实现我们的聊天列表 --- 适配器
      * 3.加载我们的历史记录
      * 4.实时更新我们的聊天信息
      * 5.发送消息
@@ -104,16 +101,11 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
 
     /**
      * 跳转
-     *
-     * @param mContext
-     * @param userId
-     * @param userName
-     * @param userPhoto
      */
     public static void startActivity(Context mContext, String userId,
                                      String userName, String userPhoto) {
         if (!CloudManager.getInstance().isConnect()) {
-//            Toast.makeText(mContext, mContext.getString(R.string.text_server_status), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.text_server_status_text_5), Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(mContext, ChatActivity.class);
@@ -296,8 +288,9 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
         });
         mChatView.setAdapter(mChatAdapter);
 
+        //加载信息
         loadMeInfo();
-
+        //查询本地历史记录
         queryMessage();
     }
 
@@ -348,12 +341,13 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
             public void onSuccess(List<Message> messages) {
                 if (CommonUtils.isNotEmpty(messages)) {
                     try {
+                        //解析本地历史聊天记录
                         parsingListMessage(messages);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    //本地为空，就去查询远程端服务器的消息记录
+                    //本地为空，就去查询远程端服务器的消息记录：可能其他设备上有和你聊过天
                     queryRemoteMessage();
                 }
             }
@@ -366,7 +360,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
     }
 
     /**
-     * 解析历史记录
+     * 解析历史记录(本地/服务器)
      *
      * @param messages
      */
@@ -386,7 +380,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
                     TextBean textBean = new Gson().fromJson(msg, TextBean.class);
                     //只显示普通的消息，其他的添加好友的消息什么的都忽略
                     if (textBean.getType().equals(CloudManager.TYPE_TEXT)) {
-                        //添加到UI 判断是你 还是 我
+                        //添加到UI 判断发送者是你 还是我
                         if (m.getSenderUserId().equals(yourUserId)) {
                             addText(0, textBean.getMsg());
                         } else {
@@ -520,7 +514,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
     }
 
     /**
-     * 添加数据的基类
+     * 添加文本消息的基本操作
      *
      * @param model
      */
@@ -534,13 +528,11 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
     }
 
     /**
-     * 添加文字
-     *
+     * 添加文本消息
      * @param index 0:左边 1:右边
      * @param text
      */
     private void addText(int index, String text) {
-        LogUtils.i("ChatA:" + text);
         ChatModel model = new ChatModel();
         if (index == 0) {
             model.setType(TYPE_LEFT_TEXT);
@@ -608,7 +600,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
     }
 
     /**
-     * 接受
+     * 接受消息
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -641,6 +633,7 @@ public class ChatActivity extends BaseBackActivity implements View.OnClickListen
             if (requestCode == FileHelper.CAMEAR_REQUEST_CODE) {
                 uploadFile = FileHelper.getInstance().getTempFile();
             } else if (requestCode == FileHelper.ALBUM_REQUEST_CODE) {
+                //相册需要真实地址
                 Uri uri = data.getData();
                 if (uri != null) {
                     //String path = uri.getPath();

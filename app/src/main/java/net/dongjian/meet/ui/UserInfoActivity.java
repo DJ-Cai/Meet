@@ -39,7 +39,9 @@ import cn.bmob.v3.listener.FindListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * 用户信息
+ * 用户信息   前三点都不难，重点在四五点
+ *
+ *
  * * 1.根据传递过来的ID 查询用户信息 并且显示
  *      *   - 普通的信息
  *      *   - 构建一个RecyclerView 宫格
@@ -231,6 +233,9 @@ public class UserInfoActivity extends BaseUIActivity implements View.OnClickList
         mUserInfoList.add(model);
     }
 
+    /**
+     * 添加好友的提示框
+     */
     private void initAddFriendDialog() {
         mAddFriendDialogView = DialogManager.getInstance().initView(this, R.layout.dialog_send_friend);
 

@@ -5,13 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Meet.iml" filepath="$PROJECT_DIR$/.idea/modules/Meet.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IMLib/Meet.IMLib.iml" filepath="$PROJECT_DIR$/.idea/modules/IMLib/Meet.IMLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Meet.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Meet.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chatroom-5.0.0/Meet.chatroom-5.0.0.iml" filepath="$PROJECT_DIR$/.idea/modules/chatroom-5.0.0/Meet.chatroom-5.0.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/customservice-5.0.0/Meet.customservice-5.0.0.iml" filepath="$PROJECT_DIR$/.idea/modules/customservice-5.0.0/Meet.customservice-5.0.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/discussion-5.0.0/Meet.discussion-5.0.0.iml" filepath="$PROJECT_DIR$/.idea/modules/discussion-5.0.0/Meet.discussion-5.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/framework/Meet.framework.iml" filepath="$PROJECT_DIR$/.idea/modules/framework/Meet.framework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/location-5.0.0/Meet.location-5.0.0.iml" filepath="$PROJECT_DIR$/.idea/modules/location-5.0.0/Meet.location-5.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mylibrary/Meet.mylibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/mylibrary/Meet.mylibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/publicservice-5.0.0/Meet.publicservice-5.0.0.iml" filepath="$PROJECT_DIR$/.idea/modules/publicservice-5.0.0/Meet.publicservice-5.0.0.iml" />
     </modules>
   </component>
 </project>

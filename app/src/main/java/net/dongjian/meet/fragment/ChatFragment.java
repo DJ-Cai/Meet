@@ -47,9 +47,7 @@ public class ChatFragment extends BaseFragment {
 
     private void initView(View view) {
         //聊天记录 通话记录 全部好友
-        mTitle = new String[]{getString(R.string.text_chat_tab_title_1)
-                , getString(R.string.text_chat_tab_title_2)
-                , getString(R.string.text_chat_tab_title_3)};
+        mTitle = new String[]{getString(R.string.text_chat_tab_title_1), getString(R.string.text_chat_tab_title_2), getString(R.string.text_chat_tab_title_3)};
 
         mChatRecordFragment = new ChatRecordFragment();
         mCallRecordFragment = new CallRecordFragment();
@@ -75,11 +73,13 @@ public class ChatFragment extends BaseFragment {
 
         //监听tabLayout的滑动
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            //选中的当前tab需要进行放大、颜色处理
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 defTabStyle(tab, 20);
             }
 
+            //解绑以后设置空view
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 tab.setCustomView(null);

@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dongjian.framwork.base.BaseUIActivity;
 import com.dongjian.framwork.bmob.BmobManager;
 import com.dongjian.framwork.entity.Constants;
-import com.dongjian.framwork.java.SimulationData;
 import com.dongjian.framwork.utils.LogUtils;
 import com.dongjian.framwork.utils.SpUtils;
 

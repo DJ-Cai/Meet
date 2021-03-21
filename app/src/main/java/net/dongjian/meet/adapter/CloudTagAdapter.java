@@ -58,7 +58,6 @@ public class CloudTagAdapter extends TagsAdapter {
 //        GlideHelper.loadUrl(mContext,model.getPhotoUrl(),iv_star_view);
 //        tv_star_name.setText(model.getNickName());
 //        return view;
-
         StarModel model = mList.get(position);
         View mView = null;
         ViewHolder viewHolder = null;

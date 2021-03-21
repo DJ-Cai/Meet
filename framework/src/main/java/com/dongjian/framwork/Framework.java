@@ -39,8 +39,6 @@ public class Framework {
         BmobManager.getmInstance().initBmob(mContext);
         CloudManager.getInstance().initCloud(mContext);
         LitePal.initialize(mContext);
-
-
     }
 
 }

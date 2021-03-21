@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./IMLib/libs/chatroom-5.0.0.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d3fc45b99c786540f1c333b2104d9e2/jetified-chatroom-5.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d3fc45b99c786540f1c333b2104d9e2/jetified-chatroom-5.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d3fc45b99c786540f1c333b2104d9e2/jetified-chatroom-5.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

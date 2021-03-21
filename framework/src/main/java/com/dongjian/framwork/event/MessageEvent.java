@@ -2,8 +2,11 @@ package com.dongjian.framwork.event;
 
 import android.view.SurfaceView;
 
+/**
+ * 事件
+ */
 public class MessageEvent {
-    //用于区分消息类型
+    //用于区分消息类型---四面八方都来消息的时候需要鉴别
     private int type;
 
     //文本消息

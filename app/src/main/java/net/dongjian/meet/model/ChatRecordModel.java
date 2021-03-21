@@ -3,7 +3,7 @@ package net.dongjian.meet.model;
 /**
  * FileName: ChatRecordModel
  * Founder: LiuGuiLin
- * Profile: 会话管理的数据模型
+ * Profile: 会话管理的数据模型---聊天记录里的recyclerView的view
  */
 public class ChatRecordModel {
 

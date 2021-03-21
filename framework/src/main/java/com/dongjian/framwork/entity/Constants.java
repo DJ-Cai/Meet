@@ -23,6 +23,7 @@ public class Constants {
     public static final String INTENT_IMAGE_TYPE = "intent_image_type";
     public static final String INTENT_IMAGE_URL = "intent_image_url";
 
+    //控制地图是否有发送按钮
     public static final String INTENT_MENU_SHOW = "intent_menu_show";
 
 }

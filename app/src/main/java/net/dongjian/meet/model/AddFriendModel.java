@@ -1,7 +1,7 @@
 package net.dongjian.meet.model;
 
 /**
- * Profile: 添加好友的数据模型
+ * Profile: 添加好友的数据模型  标题和用户信息都在这一个model里
  */
 public class AddFriendModel {
 

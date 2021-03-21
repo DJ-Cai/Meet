@@ -114,7 +114,7 @@ public class AllFriendFragment extends BaseFragment implements SwipeRefreshLayou
                         LogUtils.i("list:" + list.size());
                         for (int i = 0; i < list.size(); i++) {
                             Friend friend = list.get(i);
-                            //获取朋友id，然后再去查询用户
+                            //获取朋友id，然后再去查询用户（朋友）
                             String id = friend.getFriendUser().getObjectId();
                             BmobManager.getmInstance().queryObjectIdUser(id, new FindListener<IMUser>() {
                                 @Override

@@ -13,6 +13,8 @@ import android.view.View;
 
 import net.dongjian.framework.R;
 
+import java.util.Random;
+
 /**
  * 登录页---自定义View - - - 图片验证View
  * 1、View的背景
@@ -76,11 +78,13 @@ public class TouchPictureV extends View {
         mPaintbg = new Paint();
         mPaintNull = new Paint();
         mPaintMove = new Paint();
+
+        Random r = new Random();
+        int a = r.nextInt(26);
     }
 
     /**
      * 获取View的宽高：在布局文件中给出指定大小（精确值）
-     *
      * @param w
      * @param h
      * @param oldw
@@ -115,7 +119,7 @@ public class TouchPictureV extends View {
         //2、创建一个空的Bitmap作为背景， （在这里 背景的宽高和View的宽高一样,即mWidth 和 mHeight）
         bgBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         //3、将图片绘制到空的Bitmap，
-        //  3-1、做个画布
+        //  3-1、做个空Bitmap的画布
         Canvas bgCanvas = new Canvas(bgBitmap);
         //  3-2、画布上放入图片，图片位置、画笔
         bgCanvas.drawBitmap(mBitmap, null, new Rect(0, 0, mWidth, mHeight), mPaintbg);

@@ -2,7 +2,12 @@ package com.dongjian.framwork.event;
 
 import org.greenrobot.eventbus.EventBus;
 
+/**
+ * eventBus的管理类
+ */
 public class EventManager {
+
+    //定义各种消息的类型，以用于分别消息是从哪传来的
 
     //更新好友列表
     public static final int FLAG_UPDATE_FRIEND_LIST = 1000;
